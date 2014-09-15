@@ -44,6 +44,9 @@
   top: 0;
   bottom: 0;
 }
+.slider-handle{
+  z-index: 1;
+}
 .slider.slider-horizontal .slider-handle {
   margin-left: -10px;
   margin-top: -5px;
@@ -99,7 +102,8 @@
 .slider input {
   display: none;
 }
-.slider .tooltip.top {
+.slider .tooltip.top,
+.slider .tooltip {
   margin-top: -36px;
 }
 .slider .tooltip-inner {
