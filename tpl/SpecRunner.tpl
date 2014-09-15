@@ -20,29 +20,29 @@
 	<input class="makeSlider" type="text"/>
 
 	<!-- Sliders used for ElementDataSttributesSpec -->
-	<input id="minSlider" type="text" data-slider-min="5"/>
+	<input id="minSlider" type="text" data-min="5"/>
 
-	<input id="maxSlider" type="text" data-slider-max="5"/>
+	<input id="maxSlider" type="text" data-max="5"/>
 
-	<input id="orientationSlider" type="text" data-slider-orientation="vertical"/>
+	<input id="orientationSlider" type="text" data-orientation="vertical"/>
 
-	<input id="stepSlider" type="text" data-slider-step="5"/>
+	<input id="stepSlider" type="text" data-step="5"/>
 
-	<input id="precisionSlider" type="text" data-slider-precision="2"/>
+	<input id="precisionSlider" type="text" data-precision="2"/>
 
-	<input id="valueSlider" type="text" data-slider-value="5"/>
+	<input id="valueSlider" type="text" data-value="5"/>
 
-	<input id="selectionSlider" type="text" data-slider-selection="after"/>
+	<input id="selectionSlider" type="text" data-selection="after"/>
 
-	<input id="tooltipSlider" type="text" data-slider-tooltip="hide"/>
+	<input id="tooltipSlider" type="text" data-tooltip="hide"/>
 
-	<input id="handleSlider" type="text" data-slider-handle="triangle"/>
+	<input id="handleSlider" type="text" data-handle="triangle"/>
 
-  	<input id="customHandleSlider" type="text" data-slider-handle="custom"/>
+  	<input id="customHandleSlider" type="text" data-handle="custom"/>
 
-	<input id="reversedSlider" type="text" data-slider-reversed="true"/>
+	<input id="reversedSlider" type="text" data-reversed="true"/>
 
-	<input id="disabledSlider" type="text" data-slider-enabled="false"/>
+	<input id="disabledSlider" type="text" data-enabled="false"/>
 
 	<input id="changeOrientationSlider" type="text"/>
 

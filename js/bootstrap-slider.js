@@ -174,7 +174,7 @@
   **************************************************/
 
   (function( $ ) {
-
+    var RangeGroups = {};
     var ErrorMsgs = {
       formatInvalidInputErrorMsg : function(input) {
         return "Invalid input value '" + input + "' passed in";
@@ -194,25 +194,35 @@
       createNewSlider.call(this, element, options);
       return this;
     };
-
+    function dasherize(string){
+      string = string.replace(/(A-Z)/g, '-'+"$1".toLowerCase());
+      string = string.replace(/_/g, '-');
+      return string;
+    }
     function createNewSlider(element, options) {
+      function getDataAttrib(element, optName) {
+        var dataName = "data-" + dasherize(optName);
+
+        var valString = element.getAttribute(dataName)  ||
+                        // use any native attributes besides id
+                        (optName !== 'id' && 
+                          element.getAttribute(optName));
+
+        try {
+          return JSON.parse(valString);
+        }
+        catch(err) {
+          return valString; 
+        }
+      }
+
       if(typeof element === "string") {
         this.element = document.querySelector(element);
       } else if(element instanceof HTMLElement) {
         this.element = element;
       }
 
-      function getDataAttrib(element, optName) {
-        var dataName = "data-slider-" + optName;
-        var dataValString = element.getAttribute(dataName);
-        
-        try {
-          return JSON.parse(dataValString);
-        }
-        catch(err) {
-          return dataValString;
-        }
-      }
+      
       /*************************************************
             
               Process Options
@@ -228,6 +238,7 @@
         var val = options[optName];
         // If no data attrib, then check data atrributes
         val = (typeof val !== 'undefined') ? val : getDataAttrib(this.element, optName);
+
         // Finally, if nothing was specified, use the defaults
         val = (val !== null) ? val : this.defaultOptions[optName];
 
@@ -236,6 +247,13 @@
           this.options = {};
         }
         this.options[optName] = val;
+      }
+      if(this.options.parent){
+        RangeGroups[this.options.parent] = RangeGroups[this.options.parent] || [];
+        this.options.element = this.element;
+        RangeGroups[this.options.parent]
+          .push(this.options);
+        return;
       }
 
       /*************************************************
@@ -255,6 +273,7 @@
       var tooltip;
       var slider;
       var keydown;
+      var handleClass;
       var sliderTrack;
 
       if (this.options.value instanceof Array !== true ){
@@ -475,14 +494,13 @@
         }
       }
 
-      var availableHandleModifiers = ['round', 'triangle', 'custom'];
-      var isValidHandleType = availableHandleModifiers.indexOf(this.options.handle) !== -1;
-      if (isValidHandleType) {
-        for(i=0; i<this.handles.length; i++){
-          handle=this.handles[i];
-          this._addClass(handle, this.options.handle);
-        }
+      for(i=0; i<this.handles.length; i++){
+        handle=this.handles[i];
+        handleClass = this.options.handle instanceof Array ?
+                        this.options.handle[i]:this.options.handle;
+        this._addClass(handle, handleClass);
       }
+
       this.offset = this._offset(this.sliderElem);
       this.size = this.sliderElem[this.sizePos];
       this.setValue(this.options.value);
@@ -554,7 +572,108 @@
         this.disable();
       }
     }
+    
 
+    // function lcm_nums(ar) {
+    //   function lcm(a, b) { 
+    //     function gcf(a, b) { 
+    //       return ( b === 0 ) ? (a):( gcf(b, a % b) ); 
+    //     }
+    //     return ( a / gcf(a,b) ) * b; 
+    //   }
+    //   if (ar.length > 1) {
+    //     ar.push( lcm( ar.shift() , ar.shift() ) );
+    //     return lcm_nums( ar );
+    //   } else {
+    //     return ar[0];
+    //   }
+    // }
+    function gcd(array){
+      if(!array.length){
+        return 0;
+      }
+      for(var r, a, i = array.length - 1, b = array[i]; i;){
+        for(a = array[--i]; r = a % b; a = b, b = r){
+        }
+      }
+      return b;
+    }
+    function createSliderGroups(){
+      $.each(RangeGroups, function(selector, group){
+        var min, max, step, element, orientation,
+            tooltip, handle, children, groupOptions,
+            reversed, enabled, formatter, id, precision, range, selection, natural_arrow_keys, tooltip_split, value;
+
+        max = 0;
+        step = [0];
+        tooltip = [];
+        formatter = [];
+        value = [];
+        handle = [];
+        enabled = [];
+        precision = [];
+        selection = [];
+        children = [];
+        range = [];
+        tooltip_split = [];
+        id = [];
+        orientation = 'horizontal';
+        reversed = natural_arrow_keys = false;
+        min = Number.MAX_VALUE;
+
+        element = document.querySelector(selector);
+
+        $(group).each(function(i, options){
+          min = options.min?Math.min(min, options.min):min;
+          max = options.max?Math.max(max, options.max):max;
+
+          children.push(options.element);
+          tooltip.push(options.tooltip);
+          enabled.push(options.enabled);
+          precision.push(options.precision);
+          selection.push(options.selection);
+          formatter.push(options.formatter);
+          range.push(options.range);
+          step.push(options.step);
+          value.push(options.value);
+          id.push(options.id);
+          handle.push(options.handle);
+          tooltip_split.push(options.tooltip_split);
+
+          if(options.natural_arrow_keys){
+            natural_arrow_keys = options.natural_arrow_keys;
+          }
+          if(options.orientation === 'vertical'){
+            orientation = 'vertical';
+          }
+          if(options.reversed){
+            reversed = true;
+          }
+        });
+        step = gcd(step); // Find Greatest common denominator
+        groupOptions = {
+          max: max,
+          min: min,
+          step: step,
+          natural_arrow_keys: natural_arrow_keys,
+          reversed: reversed,
+          selection: selection,
+          tooltip_split: tooltip_split,
+          orientation: orientation,
+          tooltip: tooltip,
+          precision: precision,
+          formatter: formatter,
+          handle: handle,
+          range: range,
+          value: value,
+          enabled: enabled,
+          id: id,
+          children: children
+        };
+        // createNewSlider.call(this, element, groupOptions);
+        new Slider(element, groupOptions);
+      });
+    }
     /*************************************************
             
           INSTANCE PROPERTIES/METHODS
@@ -570,7 +689,7 @@
 
       defaultOptions: {
         id: "",
-          min: 0,
+        min: 0,
         max: 10,
         step: 1,
         precision: 0,
@@ -578,8 +697,10 @@
         value: 5,
         range: false,
         selection: 'before',
+        children: false,
         tooltip: 'show',
         tooltip_split: false,
+        parent: false,
         handle: 'round',
         reversed: false,
         enabled: true,
@@ -876,10 +997,12 @@
           selection.style[dim[1]] = 100-this.percentage[i]+'%';
         }
 
-        var formattedTooltipVal;
+        var formattedTooltipVal, formatter;
 
         // if (this.options.range) {
         for(i=0; i<this.tooltips.length; i++){
+          formatter = this.options.formatter instanceof Array ?
+                        this.options.formatter[i]:this.options.formatter;
           if(this.tooltips.length > 1 && !this.options.tooltip_split){
             left = this.options.value[i-1] || this.options.min;
             right = this.options.value[i] || this.options.max;
@@ -891,9 +1014,9 @@
             this.tooltips[i].style[this.stylePos] = percentage[i] + '%';
           }
           if(this.options.tooltip_split){
-            formattedTooltipVal = this.options.formatter(left);
+            formattedTooltipVal = formatter(left);
           }else{
-            formattedTooltipVal = this.options.formatter(left, right);
+            formattedTooltipVal = formatter(left, right);
           }
           this._setText(this.tooltipInners[i], formattedTooltipVal);
           
@@ -934,7 +1057,6 @@
           }
         }
 
-        console.log(this.percentage);
         this._layout();
 
         this.mousemove = this._mousemove.bind(this);
@@ -1189,9 +1311,19 @@
         }
       },
       _setDataVal: function(val) {
-        var value = "value: '" + val + "'";
-        this.element.setAttribute('data', value);
-        this.element.setAttribute('value', val);
+        var children, value, dataval;
+        if(this.options.children){
+          children = this.options.children;
+          val.forEach(function(value, i){
+            dataval = "value: '" + val + "'";
+            children[i].setAttribute('data', dataval);
+            children[i].setAttribute('value', value);
+          });
+        }else{
+          value = "value: '" + val + "'";
+          this.element.setAttribute('data', value);
+          this.element.setAttribute('value', val);
+        }
       },
       _trigger: function(evt, val) {
         val = val || undefined;
@@ -1280,12 +1412,21 @@
       Attach to global namespace
 
     *********************************/
+
     if($) {
       var namespace = $.fn.slider ? 'bootstrapSlider' : 'slider';
       $.bridget(namespace, Slider);
     } else {
       window.Slider = Slider;
     }
+
+    $(window).on('load.bs.slider.data-api', function () {
+      $('.rangepicker').each(function(i, el){
+        var $rangepicker = $(this);
+        new Slider(el, $rangepicker.data());
+      });
+      createSliderGroups.call(this);
+    });
 
 
   })( $ );

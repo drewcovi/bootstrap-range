@@ -52,11 +52,12 @@
   margin-top: -5px;
 }
 .slider.slider-horizontal .slider-handle.triangle {
-  border-width: 0 10px 10px 10px;
+  border-width: 0 14px 20px 14px;
   width: 0;
   height: 0;
   border-bottom-color: #0480be;
-  margin-top: 0;
+  margin-top: -7px;
+  margin-left: -14px;
 }
 .slider.slider-vertical {
   height: 210px;

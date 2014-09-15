@@ -517,7 +517,7 @@ describe("Public Method Tests", function() {
     expect(isRangeSlider).toBeFalsy();
   });
 
-  it("setAttribute: changes the 'data-slider-orientation' property from horizontal to vertical", function() {
+  it("setAttribute: changes the 'data-orientation' property from horizontal to vertical", function() {
     testSlider = $("#changeOrientationSlider").slider({
       id: "changeOrientationSliderElem"
     });

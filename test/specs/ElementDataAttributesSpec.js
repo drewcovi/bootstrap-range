@@ -1,7 +1,7 @@
 describe("Element Data Attributes Tests", function() {
   var slider;
 
-  it("reads the 'data-slider-min' property and sets it on slider", function() {
+  it("reads the 'data-min' property and sets it on slider", function() {
     slider = $("#minSlider").slider();
     slider.slider('setValue', 1);
 
@@ -9,7 +9,7 @@ describe("Element Data Attributes Tests", function() {
     expect(sliderValue).toBe(5);
   });
 
-  it("reads the 'data-slider-max' property and sets it on slider", function() {
+  it("reads the 'data-max' property and sets it on slider", function() {
     slider = $("#maxSlider").slider();
     slider.slider('setValue', 10);
 
@@ -17,14 +17,14 @@ describe("Element Data Attributes Tests", function() {
     expect(sliderValue).toBe(5);
   });
 
-  it("reads the 'data-slider-step' property and sets it on slider", function() {
+  it("reads the 'data-step' property and sets it on slider", function() {
 
     slider = $("#stepSlider").slider();
     //TODO How do you test this? Maybe manually trigger a slideChange event?
     expect(true).toBeTruthy();
   });
 
-  it("reads the 'data-slider-precision' property (which is set to 2) and sets it on slider", function() {
+  it("reads the 'data-precision' property (which is set to 2) and sets it on slider", function() {
     slider = $("#precisionSlider").slider();
     slider.slider('setValue', 8.115);
     
@@ -32,21 +32,21 @@ describe("Element Data Attributes Tests", function() {
     expect(sliderValue).toBe(8.12);
   });
 
-  it("reads the 'data-slider-orientation' property and sets it on slider", function() {
+  it("reads the 'data-orientation' property and sets it on slider", function() {
     slider = $("#orientationSlider").slider();
       
     var orientationIsVertical = $("#orientationSlider").data('slider').options.orientation === 'vertical';
     expect(orientationIsVertical).toBeTruthy();
   });
 
-  it("reads the 'data-slider-value' property and sets it on slider", function() {
+  it("reads the 'data-value' property and sets it on slider", function() {
     slider = $("#valueSlider").slider();
 
     var sliderValue = slider.slider('getValue');
     expect(sliderValue).toBe(5);
   });
 
-  it("reads the 'data-slider-selection' property and sets it on slider", function() {
+  it("reads the 'data-selection' property and sets it on slider", function() {
     slider = $("#selectionSlider").slider({
       id: "selectionSliderId"
     });
@@ -56,7 +56,7 @@ describe("Element Data Attributes Tests", function() {
     expect(newSliderValue).toBe(0);
   });
 
-  it("reads the 'data-slider-tooltip' property and sets it on slider", function() {
+  it("reads the 'data-tooltip' property and sets it on slider", function() {
     slider = $("#tooltipSlider").slider({
       id: "tooltipSliderElem"
     });
@@ -64,7 +64,7 @@ describe("Element Data Attributes Tests", function() {
     expect(tooltipIsHidden).toBeTruthy();
   });
 
-  describe("reads the 'data-slider-handle' property and sets it on slider", function() {
+  describe("reads the 'data-handle' property and sets it on slider", function() {
     it("applies 'triangle' class tag to handle", function() {
       slider = $("#handleSlider").slider({
         id: "handleSliderElem"
@@ -82,7 +82,7 @@ describe("Element Data Attributes Tests", function() {
     });
   });
 
-  it("reads the 'data-slider-reversed' property and sets it on slider", function() {
+  it("reads the 'data-reversed' property and sets it on slider", function() {
     slider = $("#reversedSlider").slider({
       id: "reversedSliderElem"  
     });
@@ -92,7 +92,7 @@ describe("Element Data Attributes Tests", function() {
     expect(sliderSelectionHeightAtMaxValue).toBe(0);
   });
 
-  it("reads the 'data-slider-enabled' property and sets it on slider", function() {
+  it("reads the 'data-enabled' property and sets it on slider", function() {
     slider = $("#disabledSlider").slider();
     var isEnabled = slider.slider('isEnabled');
     expect(isEnabled).not.toBeTruthy();

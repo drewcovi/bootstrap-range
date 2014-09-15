@@ -161,14 +161,14 @@
       		<h3>Example 1:</h3>
       		<p>Basic example with custom formatter and colored selected region via CSS.</p>
       		<div class="well">
-				<input id="ex1" data-slider-id='ex1Slider' type="text" data-slider-min="-5" data-slider-max="20" data-slider-step="1" data-slider-value="14"/>
+				<input id="ex1" data-id='ex1Slider' type="range" data-min="-5" data-max="20" data-step="1" data-value="14"/>
 			</div>
 			<pre><code>
 ###################
        HTML
 ###################
 
-&ltinput id="ex1" data-slider-id='ex1Slider' type="text" data-slider-min="0" data-slider-max="20" data-slider-step="1" data-slider-value="14"/&gt
+&ltinput id="ex1" data-id='ex1Slider' type="range" data-min="0" data-max="20" data-step="1" data-value="14"/&gt
 
 
 
@@ -206,14 +206,19 @@ var slider = new Slider('#ex1', {
       		<h3>Example 2:</h3>
       		<p>Range selector, options specified via data attribute.</p>
       		<div class="well">
-      			Filter by price interval: <b>€ 10</b> <input id="ex2" type="text" class="span2" value="" data-slider-min="10" data-slider-max="1000" data-slider-step="5" data-slider-value="[250,450, 600]"/> <b>€ 1000</b>
+      			Filter by price interval: <b>€ 10</b>
+      			<fieldset class="form-group" id="range-group">
+	      			<input type="range" class="col-sm-2 rangepicker" min="10" max="1000" step="48" value="250" data-parent="#range-group" data-tooltip-split="true"/>
+	      			<input type="range" class="col-sm-2 rangepicker" min="5" max="1000" step="36" value="450" data-parent="#range-group"/>
+	      			<input type="range" class="col-sm-2 rangepicker" min="10" max="1000" step="24" value="600" data-parent="#range-group"/> <b>€ 1000</b>
+	      		</fieldset>
       		</div>
       		<pre><code>
 ###################
        HTML
 ###################
 
-Filter by price interval: &ltb&gt€ 10&lt/b&gt &ltinput id="ex2" type="text" class="span2" value="" data-slider-min="10" data-slider-max="1000" data-slider-step="5" data-slider-value="[250,450]"/&gt &ltb&gt€ 1000&lt/b&gt
+Filter by price interval: &ltb&gt€ 10&lt/b&gt &ltinput id="ex2" type="range" class="col-sm-2" value="" data-min="10" data-max="1000" data-step="5" data-value="[250,450]"/&gt &ltb&gt€ 1000&lt/b&gt
 
 
 ###################
@@ -221,7 +226,7 @@ Filter by price interval: &ltb&gt€ 10&lt/b&gt &ltinput id="ex2" type="text" cl
 ###################
 
 // With JQuery
-$("#ex2").slider({});
+$("#ex20, #ex21, #ex22").slider({});
 
 // Without JQuery
 var slider = new Slider('#ex2', {});
@@ -234,13 +239,13 @@ var slider = new Slider('#ex2', {});
       		<p>Using events to work with the values and style the selection and handles via CSS. The tooltip is disabled and diferent shapes for the handles.</p>
       		<div class="well">
       			<p>
-	        	<b>R</b> <input type="text" class="span2" value="" data-slider-min="0" data-slider-max="255" data-slider-step="1" data-slider-value="128" data-slider-id="RC" id="R" data-slider-tooltip="hide" data-slider-handle="square" />
+	        	<b>R</b> <input type="range" class="col-sm-2" value="" data-min="0" data-max="255" data-step="1" data-value="128" data-id="RC" id="R" data-tooltip="hide" data-handle="square" />
 	            </p>
 	            <p>
-	            <b>G</b> <input type="text" class="span2" value="" data-slider-min="0" data-slider-max="255" data-slider-step="1" data-slider-value="128" data-slider-id="GC" id="G" data-slider-tooltip="hide" data-slider-handle="round" />
+	            <b>G</b> <input type="range" class="col-sm-2" value="" data-min="0" data-max="255" data-step="1" data-value="128" data-id="GC" id="G" data-tooltip="hide" data-handle="round" />
 	            </p>
 	            <p>
-	            <b>B</b> <input type="text" class="span2" value="" data-slider-min="0" data-slider-max="255" data-slider-step="1" data-slider-value="128" data-slider-id="BC" id="B" data-slider-tooltip="hide" data-slider-handle="triangle" />
+	            <b>B</b> <input type="range" class="col-sm-2" value="" data-min="0" data-max="255" data-step="1" data-value="128" data-id="BC" id="B" data-tooltip="hide" data-handle="triangle" />
 	            </p>
 	            <div id="RGB"></div>
       		</div>
@@ -250,13 +255,13 @@ var slider = new Slider('#ex2', {});
 ###################
 
 &ltp&gt
-&ltb&gtR&lt/b&gt &ltinput type="text" class="span2" value="" data-slider-min="0" data-slider-max="255" data-slider-step="1" data-slider-value="128" data-slider-id="RC" id="R" data-slider-tooltip="hide" data-slider-handle="square" /&gt
+&ltb&gtR&lt/b&gt &ltinput type="range" class="col-sm-2" value="" data-min="0" data-max="255" data-step="1" data-value="128" data-id="RC" id="R" data-tooltip="hide" data-handle="square" /&gt
 &lt/p&gt
 &ltp&gt
-&ltb&gtG&lt/b&gt &ltinput type="text" class="span2" value="" data-slider-min="0" data-slider-max="255" data-slider-step="1" data-slider-value="128" data-slider-id="GC" id="G" data-slider-tooltip="hide" data-slider-handle="round" /&gt
+&ltb&gtG&lt/b&gt &ltinput type="range" class="col-sm-2" value="" data-min="0" data-max="255" data-step="1" data-value="128" data-id="GC" id="G" data-tooltip="hide" data-handle="round" /&gt
 &lt/p&gt
 &ltp&gt
-&ltb&gtB&lt/b&gt &ltinput type="text" class="span2" value="" data-slider-min="0" data-slider-max="255" data-slider-step="1" data-slider-value="128" data-slider-id="BC" id="B" data-slider-tooltip="hide" data-slider-handle="triangle" /&gt
+&ltb&gtB&lt/b&gt &ltinput type="range" class="col-sm-2" value="" data-min="0" data-max="255" data-step="1" data-value="128" data-id="BC" id="B" data-tooltip="hide" data-handle="triangle" /&gt
 &lt/p&gt
 &ltdiv id="RGB"&gt&lt/div&gt
 
@@ -317,14 +322,14 @@ var b = $('#B').slider()
       		<h3>Example 4:</h3>
       		<p>Vertical Slider with reversed values (largest to smallest).</p>
       		<div class="well">
-      			<input id="ex4" type="text" data-slider-min="-5" data-slider-max="20" data-slider-step="1" data-slider-value="-3" data-slider-orientation="vertical"/>
+      			<input id="ex4" type="range" data-min="-5" data-max="20" data-step="1" data-value="-3" data-orientation="vertical"/>
       		</div>
       		<pre><code>
 ###################
        HTML
 ###################
 
-&ltinput id="ex4" type="text" data-slider-min="-5" data-slider-max="20" data-slider-step="1" data-slider-value="-3" data-slider-orientation="vertical"/&gt
+&ltinput id="ex4" type="range" data-min="-5" data-max="20" data-step="1" data-value="-3" data-orientation="vertical"/&gt
 
 
 ###################
@@ -348,7 +353,7 @@ var slider = new Slider("#ex4", {
       		<h3>Example 5:</h3>
       		<p>Destroy instance of slider by calling destroy() method on slider instance via JavaScript.
       		<div class="well">
-      			<input id="ex5" type="text" data-slider-min="-5" data-slider-max="20" data-slider-step="1" data-slider-value="0"/>
+      			<input id="ex5" type="range" data-min="-5" data-max="20" data-step="1" data-value="0"/>
       			<button id="destroyEx5Slider" class='btn btn-danger'>Click to Destroy</button>
       		</div>
       		<pre><code>
@@ -356,7 +361,7 @@ var slider = new Slider("#ex4", {
        HTML
 ###################
 
-&ltinput id="ex5" type="text" data-slider-min="-5" data-slider-max="20" data-slider-step="1" data-slider-value="0"/&gt
+&ltinput id="ex5" type="range" data-min="-5" data-max="20" data-step="1" data-value="0"/&gt
 &ltbutton id="destroyEx5Slider" class='btn btn-danger'>Click to Destroy&lt/button&gt
 
 
@@ -387,7 +392,7 @@ $("#destroyEx5Slider").click(function() {
       		<h3>Example 6:</h3>
       		<p>Able to bind to 'slide' JQuery event on slider, which is triggered whenever the slider is used.</p>
       		<div class="well">
-      			<input id="ex6" type="text" data-slider-min="-5" data-slider-max="20" data-slider-step="1" data-slider-value="3"/>
+      			<input id="ex6" type="range" data-min="-5" data-max="20" data-step="1" data-value="3"/>
       			<span id="ex6CurrentSliderValLabel">Current Slider Value: <span id="ex6SliderVal">3</span></span>
       		</div>
       		<pre><code>
@@ -395,7 +400,7 @@ $("#destroyEx5Slider").click(function() {
        HTML
 ###################
 
-&ltinput id="ex6" type="text" data-slider-min="-5" data-slider-max="20" data-slider-step="1" data-slider-value="3"/&t
+&ltinput id="ex6" type="range" data-min="-5" data-max="20" data-step="1" data-value="3"/&t
 &ltspan id="ex6CurrentSliderValLabel">Current Slider Value: &ltspan id="ex6SliderVal"&gt3&lt/span&gt&lt/span&gt
 
 
@@ -422,7 +427,7 @@ slider.on("slide", function(slideEvt) {
       		<h3>Example 7:</h3>
       		<p>Sliders can be enabled and disabled.</p>
       		<div class="well">
-      			<input id="ex7" type="text" data-slider-min="0" data-slider-max="20" data-slider-step="1" data-slider-value="5" data-slider-enabled="false"/>
+      			<input id="ex7" type="range" data-min="0" data-max="20" data-step="1" data-value="5" data-enabled="false"/>
       			<input id="ex7-enabled" type="checkbox"/> Enabled
       		</div>
       		<pre><code>
@@ -430,7 +435,7 @@ slider.on("slide", function(slideEvt) {
        HTML
 ###################
 
-&ltinput id="ex7" type="text" data-slider-min="0" data-slider-max="20" data-slider-step="1" data-slider-value="5" data-slider-enabled="false"/&gt
+&ltinput id="ex7" type="range" data-min="0" data-max="20" data-step="1" data-value="5" data-enabled="false"/&gt
 &ltinput id="ex7-enabled" type="checkbox"/&gt Enabled
 
 
@@ -468,14 +473,14 @@ $("#ex7-enabled").click(function() {
       		<h3>Example 8:</h3>
       		<p>Tooltip can always be displayed.</p>
       		<div class="well">
-  				<input id="ex8" data-slider-id='ex1Slider' type="text" data-slider-min="0" data-slider-max="20" data-slider-step="1" data-slider-value="14"/>
+  				<input id="ex8" data-id='ex1Slider' type="range" data-min="0" data-max="20" data-step="1" data-value="14"/>
       		</div>
       		<pre><code>
 ###################
        HTML
 ###################
 
-&ltinput id="ex8" data-slider-id='ex1Slider' type="text" data-slider-min="0" data-slider-max="20" data-slider-step="1" data-slider-value="14"/&gt
+&ltinput id="ex8" data-id='ex1Slider' type="range" data-min="0" data-max="20" data-step="1" data-value="14"/&gt
 
 
 ###################
@@ -499,14 +504,14 @@ var slider = new Slider("#ex8", {
       		<h3>Example 9:</h3>
       		<p>Precision (number of places after the decimal) can be specified.</p>
       		<div class="well">
-  				<input id="ex9" type="text"/>
+  				<input id="ex9" type="range"/>
       		</div>
       		<pre><code>
 ###################
        HTML
 ###################
 
-&ltinput id="ex9" type="text"/&gt
+&ltinput id="ex9" type="range"/&gt
 
 ###################
     JavaScript
@@ -531,14 +536,14 @@ var slider = new Slider("#ex9", {
     <h3>Example 10:</h3>
     <p>Setting custom handlers.</p>
     <div class="well">
-    <input id="ex10" type="text" data-slider-handle="custom"/>
+    <input id="ex10" type="range" data-handle="custom"/>
     </div>
     <pre><code>
 ###################
  HTML
 ###################
 
-&ltinput id="ex10" type="text" data-slider-handle="custom"/&gt
+&ltinput id="ex10" type="range" data-handle="custom"/&gt
 
 
 ###################
@@ -573,14 +578,14 @@ color: #726204;
       <h3>Example 11:</h3>
       <p>Using a custom step interval.</p>
       <div class="well">
-      <input id="ex11" type="text" data-slider-handle="custom"/>
+      <input id="ex11" type="range" data-handle="custom"/>
       </div>
       <pre><code>
 ###################
 HTML
 ###################
 
-&ltinput id="ex11" type="text" data-slider-handle="custom"/&gt
+&ltinput id="ex11" type="range" data-handle="custom"/&gt
 
 
 ###################
@@ -617,7 +622,7 @@ var slider = new Slider("#ex11", {
 	        });
 
 	    	/* Example 2 */
-	        $("#ex2").slider({});
+	        // $("#ex20, #ex21, #ex22").slider({});
 
 	        /* Example 3 */
 	        var RGBChange = function() {
