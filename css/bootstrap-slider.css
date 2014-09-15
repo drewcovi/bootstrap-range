@@ -32,6 +32,9 @@
   width: 210px;
   height: 20px;
 }
+input.rangepicker{
+  display: none;
+}
 .slider.slider-horizontal .slider-track {
   height: 10px;
   width: 100%;
