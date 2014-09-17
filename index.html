@@ -127,7 +127,6 @@
 		<![endif]-->
 	</head>
 	<body>
-		<input id="reversedSlider" type="text" data-reversed="true"/>
 		<div class="container">
 			<div class="jumbotron">
 				<h1>Rangepicker for Bootstrap <small>bootstrap-rangepicker.js</small></h1>
