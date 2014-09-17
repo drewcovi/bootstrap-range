@@ -1113,6 +1113,7 @@
         for(i=0; i<this.handles.length; i++){
           if(ev.target === this.handles[i]){
             this._addClass(this.selections[i], 'active');
+            this._addClass(this.handles[i], 'active');
           }
         }
 
@@ -1267,6 +1268,7 @@
         }
         for(i=0; i<this.handles.length; i++){
           this._removeClass(this.selections[i], 'active');
+          this._removeClass(this.handles[i], 'active');
         }
         this.inDrag = false;
         if (this.over === false) {
