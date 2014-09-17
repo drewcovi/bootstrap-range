@@ -1,6 +1,6 @@
 .idea/*
 node_modules
 bower_components
-css/
+temp/
 .grunt/*
 _SpecRunner.html
