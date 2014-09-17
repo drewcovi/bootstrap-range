@@ -112,12 +112,16 @@
 }
 .bootstrap-range .tooltip {
   visibility: hidden;
+  margin-top: 0;
 }
 .bootstrap-range .tooltip.top {
-  margin-top: -36px;
+  top: -36px;
 }
 .bootstrap-range .tooltip.in {
   visibility: visible;
+}
+.bootstrap-range .tooltip.bottom {
+  bottom: -36px;
 }
 .bootstrap-range .tooltip-inner {
   white-space: nowrap;
