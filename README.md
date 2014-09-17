@@ -1,4 +1,4 @@
-bootstrap-rangepicker [![Build Status](https://travis-ci.org/seiyria/bootstrap-rangepicker.png?branch=master)](https://travis-ci.org/seiyria/bootstrap-rangepicker)
+bootstrap-rangepicker [![Build Status](https://travis-ci.org/drewcovi/bootstrap-rangepicker.png?branch=master)](https://travis-ci.org/seiyria/bootstrap-rangepicker)
 ================
 Originally began as a loose "fork" of bootstrap-slider found on http://www.eyecon.ro/ by Stefan Petre.
 
