@@ -26,7 +26,7 @@ __We only support modern browsers!!! Basically, anything below IE9 is not compat
 
 Examples
 ========
-You can see all of our API examples [here](http://seiyria.github.io/bootstrap-rangepicker/).
+You can see all of our API examples [here](http://drewcovi.github.io/bootstrap-rangepicker/).
 
 Using bootstrap-rangepicker (with JQuery)
 ======================
@@ -46,19 +46,19 @@ var value = mySlider.rangepicker('getValue');
 		.rangepicker('setValue', 7);
 ```
 
-If there is already a JQuery plugin named _rangepicker_ bound to the namespace, then this plugin will take on the alternate namespace _bootstrapSlider_.
+If there is already a JQuery plugin named _rangepicker_ bound to the namespace, then this plugin will take on the alternate namespace _bootstrapRangepicker_.
 
 ```
 // Instantiate a rangepicker
-var mySlider = $("input.rangepicker").bootstrapSlider();
+var mySlider = $("input.rangepicker").bootstrapRangepicker();
 
 // Call a method on the rangepicker
-var value = mySlider.bootstrapSlider('getValue');
+var value = mySlider.bootstrapRangepicker('getValue');
 
 // For non-getter methods, you can chain together commands
 	mySlider
-		.bootstrapSlider('setValue', 5)
-		.bootstrapSlider('setValue', 7);
+		.bootstrapRangepicker('setValue', 5)
+		.bootstrapRangepicker('setValue', 7);
 ```
 
 Using bootstrap-rangepicker (without JQuery)
@@ -83,8 +83,7 @@ mySlider
 
 Options
 =======
-Options can be passed either as a data (data-rangepicker-foo) attribute, or as part of an object in the rangepicker call. The only exception here is the formater argument - that can not be passed as a data- attribute.
-
+Options can be passed either as a data (data-foo) attribute, or as part of an object in the rangepicker call.
 
 | Name | Type |	Default |	Description |
 | ---- |:----:|:-------:|:----------- |
@@ -144,9 +143,6 @@ Other Platforms & Libraries
 
 Maintainers
 ============
-- Kyle Kemp
-	* Twitter: [@seiyria](https://twitter.com/seiyria)
-	* Github: [seiyria](https://github.com/seiyria)
-- Rohit Kalkur
-	* Twitter: [@Rovolutionary](https://twitter.com/Rovolutionary)
-	* Github: [rovolution](https://github.com/rovolution)
+- Drew Covi
+	* Twitter: [@drewcovi](https://twitter.com/drewcovi)
+	* Github: [drewcovi](https://github.com/drewcovi)\

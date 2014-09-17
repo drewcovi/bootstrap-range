@@ -31,7 +31,7 @@ describe("Namespace Tests", function() {
     var scriptLoaded;
 
     runs(function() {
-      $.fn.bootstrapSlider = undefined;
+      $.fn.bootstrapRangepicker = undefined;
       $.fn.rangepicker = undefined;
 
       $.getScript("js/bootstrap-rangepicker.js", function() {
