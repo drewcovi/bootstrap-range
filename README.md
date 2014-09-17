@@ -1,6 +1,6 @@
 bootstrap-rangepicker [![Build Status](https://travis-ci.org/seiyria/bootstrap-rangepicker.png?branch=master)](https://travis-ci.org/seiyria/bootstrap-rangepicker)
 ================
-Originally began as a loose "fork" of bootstrap-rangepicker found on http://www.eyecon.ro/ by Stefan Petre.
+Originally began as a loose "fork" of bootstrap-slider found on http://www.eyecon.ro/ by Stefan Petre.
 
 Over time, this project has diverged sigfinicantly from Stefan Petre's version and is now almost completly different.
 
@@ -10,7 +10,7 @@ Installation
 ============
 Clone the repository, then run `npm install`
 
-Want to use bower? `bower install seiyria-bootstrap-rangepicker`
+Want to use bower? `bower install bootstrap-rangepicker`
 
 Then load the plugin CSS and JavaScript into your web page, and everything should work!
 
