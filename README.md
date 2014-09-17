@@ -145,4 +145,4 @@ Maintainers
 ============
 - Drew Covi
 	* Twitter: [@drewcovi](https://twitter.com/drewcovi)
-	* Github: [drewcovi](https://github.com/drewcovi)\
+	* Github: [drewcovi](https://github.com/drewcovi)
