@@ -103,12 +103,35 @@ input.rangepicker{
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffe5e5e5', endColorstr='#ffe9e9e9', GradientType=0);
   cursor: not-allowed;
 }
+.no-limits .slider-selection-1{
+  background: red;
+}
+.no-limits .slider-selection-2{
+  background: green;
+}
+.no-limits .slider-selection-3{
+  background: blue;
+}
+.no-limits .slider-selection-4{
+  background: orange;
+}
 .slider input {
   display: none;
 }
+.slider .tooltip{
+  visibility: hidden;
+}
+.slider .tooltip.in{
+  visibility: visible;
+}
 .slider .tooltip.top,
 .slider .tooltip {
-  margin-top: -36px;
+  margin: 0;
+  top: -36px;
+}
+.slider .tooltip.bottom{
+  top: auto;
+  bottom: -36px;
 }
 .slider .tooltip-inner {
   white-space: nowrap;

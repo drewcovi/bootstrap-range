@@ -147,8 +147,7 @@
     <![endif]-->
   </head>
 
-  <body>
-
+<body>
     <div class="container">
 
       <div class="jumbotron">
@@ -207,11 +206,90 @@ var slider = new Slider('#ex1', {
       		<p>Range selector, options specified via data attribute.</p>
       		<div class="well">
       			Filter by price interval: <b>€ 10</b>
+      			<div class="form-group">
+					<input
+						type="range"
+						class="rangepicker no-limits"
+						data-value="[6,12,17,24]"
+						max="24"
+						min=".25"
+						data-limit="false"
+						data-precision="2"
+						data-range="true"
+						data-formatter="return arguments[0]+'hrs';"
+						/>
+      			</div>
+      			<div class="form-group">
+					<input
+						type="range"
+						class="rangepicker"
+						data-value="[6,8,17,20]"
+						max="24"
+						min=".25"
+						data-limit="2"
+						data-precision="2"
+						data-range="false"
+						data-formatter="return (parseInt(arguments[0])%12>0?parseInt(arguments[0])%12:12)+':'+(arguments[0]%1>0?arguments[0]%1*60:'00');"
+						/>
+      			</div>
+      			<div class="form-group">
+					<input
+						type="range"
+						class="rangepicker"
+						data-value="[6,8,17,20]"
+						max="24"
+						min=".25"
+						data-limit="2"
+						data-precision="2"
+						data-range="true"
+						data-formatter="return arguments[1]-arguments[0]+'hrs';"
+						/>
+      			</div>
+
+      			<div class="form-group">
+
       			<fieldset class="form-group" id="range-group">
-	      			<input type="range" class="col-sm-2 rangepicker" min="10" max="1000" step="48" value="250" data-parent="#range-group" data-tooltip-split="true"/>
-	      			<input type="range" class="col-sm-2 rangepicker" min="5" max="1000" step="36" value="450" data-parent="#range-group"/>
-	      			<input type="range" class="col-sm-2 rangepicker" min="10" max="1000" step="24" value="600" data-parent="#range-group"/> <b>€ 1000</b>
+	      			<input
+	      				type="range"
+	      				class="col-sm-2 rangepicker"
+	      				min=".25"
+	      				max="24"
+	      				step=".25"
+	      				value="6"
+	      				data-parent="#range-group"
+	      				data-precision="2"
+	      				data-limit="0"
+	      				data-formatter="return (parseInt(arguments[0])%12>0?parseInt(arguments[0])%12:12)+':'+(arguments[0]%1>0?arguments[0]%1*60:'00');"
+	      				/>
+	      			<input
+	      				type="range"
+	      				class="col-sm-2 rangepicker"
+	      				min=".25"
+	      				max="24"
+	      				step=".25"
+	      				value="8"
+	      				data-parent="#range-group"
+	      				/>
+	      			<input
+	      				type="range"
+	      				class="col-sm-2 rangepicker"
+	      				min=".25"
+	      				max="24"
+	      				step=".25"
+	      				value="17"
+	      				data-parent="#range-group"
+	      				/>
+	      			<input
+	      				type="range"
+	      				class="col-sm-2 rangepicker"
+	      				min=".25"
+	      				max="24"
+	      				step=".25"
+	      				value="20"
+	      				data-parent="#range-group"/>
+	      			<b>€ 1000</b>
 	      		</fieldset>
+		      	</div>
       		</div>
       		<pre><code>
 ###################

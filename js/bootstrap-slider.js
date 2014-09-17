@@ -238,7 +238,6 @@
         var val = options[optName];
         // If no data attrib, then check data atrributes
         val = (typeof val !== 'undefined') ? val : getDataAttrib(this.element, optName);
-
         // Finally, if nothing was specified, use the defaults
         val = (val !== null) ? val : this.defaultOptions[optName];
 
@@ -246,14 +245,26 @@
         if(!this.options) {
           this.options = {};
         }
+        if(typeof val === 'string' && Boolean(parseFloat(val))){
+          val = parseFloat(val);
+        }
         this.options[optName] = val;
       }
+      // Don't process inputs that have a parent, post process those later
       if(this.options.parent){
         RangeGroups[this.options.parent] = RangeGroups[this.options.parent] || [];
         this.options.element = this.element;
         RangeGroups[this.options.parent]
           .push(this.options);
         return;
+      }
+
+      // ensure the limit is a multiple of step
+
+      if(this.options.limit && this.options.limit < this.options.step){
+        this.options.limit = this.options.step;
+      }else if(this.options.limit > this.options.step){
+        this.options.limit = parseInt(this.options.limit/this.options.step,10)*this.options.step;
       }
 
       /*************************************************
@@ -280,7 +291,7 @@
           this.options.value = [parseInt(this.options.value, 10)];
       }
       if (this.options.value instanceof Array && this.options.value.length > 1) {
-        this.options.range = true;
+        // this.options.range = true;
       } else if (this.options.range && this.options.value.length === 1) {
         // User wants a range, but value is not an array
         this.options.value.push(this.options.max);
@@ -335,17 +346,21 @@
           selection.setAttribute('data-id', i+1);
           selections.push(selection);
 
-          sliderTrack.appendChild(selection);
+          // sliderTrack.appendChild(selection);
+
+          sliderTrack.insertBefore(selection,sliderTrack.childNodes[0]);
           sliderTrack.appendChild(handle);
 
         }
+
         selection = document.createElement("div");
         selection.className = 
-          "slider-selection slider-selection-"+this.options.value.length;
+          "slider-selection slider-selection-"+this.options.value.length+(!this.options.limit?" hidden":"");
         selection.style.right = '0%';
         selection.setAttribute('data-id', i+1);
         selections.push(selection);
         sliderTrack.appendChild(selection);
+
 
         this.handles = handles;
         this.selections = selections;
@@ -354,7 +369,7 @@
       this.tooltips = [];
       this.tooltipInners = [];
 
-      if(this.options.tooltip_split || this.options.value.length === 1){
+      if(this.options.tooltip_split || this.options.value.length === 1 || (!this.options.tooltip_split && this.options.value.length > 1 && !this.options.range)){
         for(i = 0; i < this.handles.length; i++){
           tooltip = document.createElement("div");
           className = tooltipClassName+' '+tooltipClassName+'-'+(i+1);
@@ -458,6 +473,7 @@
         }
       } else {
         this._addClass(this.sliderElem, 'slider-horizontal');
+        this._addClass(this.sliderElem, this.element.getAttribute('class')||"");
         this.sliderElem.style.width = origWidth;
 
         this.options.orientation = 'horizontal';
@@ -503,6 +519,7 @@
 
       this.offset = this._offset(this.sliderElem);
       this.size = this.sliderElem[this.sizePos];
+
       this.setValue(this.options.value);
 
       /******************************************
@@ -551,8 +568,14 @@
 
         if(this.tooltips.length > 1 && !this.options.tooltip_split){
           for(i=0; i<this.tooltips.length; i++){
-            this.selections[i].addEventListener("mouseenter", this.showTooltip, false);
-            this.selections[i].addEventListener("mouseleave", this.hideTooltip, false);
+            selection = this.selections[i] && this.selections[i];
+            handle = this.handles[i] && this.handles[i];
+            selection.addEventListener("mouseenter", this.showTooltip, false);
+            selection.addEventListener("mouseleave", this.hideTooltip, false);
+            if(handle){
+              handle.addEventListener("mouseenter", this.showTooltip, false);
+              handle.addEventListener("mouseleave", this.hideTooltip, false);
+            }
           }
         }else if(this.tooltips.length === 1){
           this.sliderElem.addEventListener("mouseenter", this.showTooltip, false);
@@ -602,21 +625,18 @@
       $.each(RangeGroups, function(selector, group){
         var min, max, step, element, orientation,
             tooltip, handle, children, groupOptions,
-            reversed, enabled, formatter, id, precision, range, selection, natural_arrow_keys, tooltip_split, value;
+            reversed, enabled, formatter, id, precision, range, selection, natural_arrow_keys, tooltip_split, value, limit;
 
         max = 0;
-        step = [0];
+        step = [];
         tooltip = [];
-        formatter = [];
         value = [];
         handle = [];
         enabled = [];
-        precision = [];
         selection = [];
         children = [];
-        range = [];
-        tooltip_split = [];
         id = [];
+        precision = 0;
         orientation = 'horizontal';
         reversed = natural_arrow_keys = false;
         min = Number.MAX_VALUE;
@@ -624,22 +644,31 @@
         element = document.querySelector(selector);
 
         $(group).each(function(i, options){
-          min = options.min?Math.min(min, options.min):min;
-          max = options.max?Math.max(max, options.max):max;
+          min = Math.min(min, options.min);
+          max = Math.max(max, options.max);
+          precision = Math.max(precision, options.precision);
 
           children.push(options.element);
           tooltip.push(options.tooltip);
           enabled.push(options.enabled);
-          precision.push(options.precision);
           selection.push(options.selection);
-          formatter.push(options.formatter);
-          range.push(options.range);
+          
           step.push(options.step);
           value.push(options.value);
           id.push(options.id);
           handle.push(options.handle);
-          tooltip_split.push(options.tooltip_split);
-
+          if(options.range){
+            range = options.range;
+          }
+          if(options.limit !== false){
+            limit = options.limit;
+          }
+          if(options.formatter){
+            formatter = new Function(options.formatter);
+          }
+          if(options.tooltip_split){
+            tooltip_split = options.tooltip_split;
+          }
           if(options.natural_arrow_keys){
             natural_arrow_keys = options.natural_arrow_keys;
           }
@@ -651,12 +680,14 @@
           }
         });
         step = gcd(step); // Find Greatest common denominator
+        limit = limit < step ? step : parseInt(limit/step,10)*step;
         groupOptions = {
           max: max,
           min: min,
           step: step,
           natural_arrow_keys: natural_arrow_keys,
           reversed: reversed,
+          limit: limit,
           selection: selection,
           tooltip_split: tooltip_split,
           orientation: orientation,
@@ -693,6 +724,7 @@
         max: 10,
         step: 1,
         precision: 0,
+        limit: false,
         orientation: 'horizontal',
         value: 5,
         range: false,
@@ -704,13 +736,7 @@
         handle: 'round',
         reversed: false,
         enabled: true,
-        formatter: function(left, right) {
-          if(left && right){
-            return left + " : " + right;
-          } else {
-            return left;
-          }
-        },
+        formatter: '',
         natural_arrow_keys: false
       },
       
@@ -719,7 +745,7 @@
       inDrag: false,
 
       getValue: function() {
-        if (this.options.range) {
+        if (this.options.value.length > 1) {
           return this.options.value;
         }
         return this.options.value[0];
@@ -746,7 +772,11 @@
         }
         this.options.value = this._validateInputValue(val);
         var applyPrecision = this._applyPrecision.bind(this);
-        if (this.options.range) {
+        if (
+            this.options.children ||
+            this.options.range ||
+            this.options.value.length > 1
+          ) {
           for(i=0; i<this.options.value.length; i++){
             value = this.options.value[i];
             value = applyPrecision(value);
@@ -760,11 +790,6 @@
           value = Math.min(max, value);
           value = Math.max(min, value);
           this.options.value[0] = value;
-          // if (this.options.selection === 'after') {
-          //  this.options.value[1] = this.options.max;
-          // } else {
-          //  this.options.value[1] = this.options.min;
-          // }
         }
 
         this.diff = max - min;
@@ -775,6 +800,7 @@
             this.percentage.push((value - min) * 100/this.diff);
           }
           this.stepPercentage = this.options.step * 100 / this.diff;
+          this.limitPercentage = this.options.limit * 100 / this.diff;
         } else {
           this.percentage = [0, 0];
           this.stepPercentage = 100;
@@ -783,7 +809,8 @@
 
         this._layout();
 
-        var sliderValue = this.options.range ? this.options.value : this.options.value[0];
+        var sliderValue = this.options.children || this.options.range ? this.options.value : this.options.value[0];
+
         this._setDataVal(sliderValue);
 
         if(triggerSlideEvent === true) {
@@ -940,10 +967,21 @@
         }
       },
       _showTooltip: function(event) {
-        var i;
-        i = event && event.target.getAttribute('data-id');
+        var target = event && event.target;
+        var i = target && target.getAttribute('data-id');
+        var handle = false;
+        this.handles.forEach(function(element){
+          if(target === element){
+            handle = true;
+          }
+        });
         if(i){
           this._addClass( this.tooltips[i-1], 'in');
+          if(handle && this.tooltips[i] && this.options.range && this.options.limit){
+            // hovering over a handle while range is selected, show next range
+            this._removeClass( this.tooltips[i], 'top');
+            this._addClass( this.tooltips[i], 'in bottom');
+          }
         }else{
           for(i=0; i<this.tooltips.length; i++){
             this._addClass( this.tooltips[i], 'in');
@@ -954,7 +992,8 @@
       _hideTooltip: function(i) {
         if (this.inDrag === false && this.alwaysShowTooltip !== true) {
           for(i=0; i<this.tooltips.length; i++){
-            this._removeClass( this.tooltips[i], 'in');
+            this._removeClass( this.tooltips[i], 'in bottom');
+            this._addClass( this.tooltips[i], 'top');
           }
         }
         this.over = false;
@@ -970,9 +1009,6 @@
         }
         for(i=0; i<this.handles.length; i++){
           handle = this.handles[i];
-          // if(this.options.reversed){
-          //    percentage[i] = 100 - percentage[i];
-          // }
           handle.style[this.stylePos] = percentage[i]+'%';
         }
         if(this.options.orientation === 'vertical'){
@@ -980,15 +1016,9 @@
         }else{
           dim = ['left','right'];
         }
-        // if(this.options.reversed){
-        //  tmp = dim[0];
-        //  dim[0] = dim[1];
-        //  dim[1] = tmp;
-        //  console.log(dim);
-        // }
         for(i=0; i<this.selections.length; i++){
           selection = this.selections[i];
-          if(i===0){
+          if(i===0 || this.options.limit === false){
             prev = 0;
           }else{
             prev = this.percentage[i-1];
@@ -999,22 +1029,43 @@
 
         var formattedTooltipVal, formatter;
 
-        // if (this.options.range) {
+        function defaultFormatter(left, right) {
+          if(left && right){
+            return left + " : " + right;
+          } else {
+            return left;
+          }
+        }
+
+        formatter = typeof this.options.formatter === 'function'?
+                      this.options.formatter:
+                      this.options.formatter?
+                        new Function(this.options.formatter):defaultFormatter;
+
         for(i=0; i<this.tooltips.length; i++){
-          formatter = this.options.formatter instanceof Array ?
-                        this.options.formatter[i]:this.options.formatter;
-          if(this.tooltips.length > 1 && !this.options.tooltip_split){
-            left = this.options.value[i-1] || this.options.min;
-            right = this.options.value[i] || this.options.max;
-            leftPercent = this.percentage[i-1] || 0;
-            rightPercent = this.percentage[i] || 100;
-            this.tooltips[i].style[this.stylePos] = (rightPercent-leftPercent)/2 + leftPercent + '%';
+          if(
+            this.tooltips.length > 1 &&
+            !this.options.tooltip_split &&
+            this.options.range && this.options.limit
+            ){
+              left = this.options.value[i-1] || this.options.min;
+              right = this.options.value[i] || this.options.max;
+              leftPercent = this.percentage[i-1] || 0;
+              rightPercent = this.percentage[i] || 100;
+              this.tooltips[i].style[this.stylePos] = (rightPercent-leftPercent)/2 + leftPercent + '%';
+          }else if(this.options.range && !this.options.limit){
+            left = this.options.value[i];
+            leftPercent = this.percentage[i];
+            this.tooltips[i].style[this.stylePos] = leftPercent/2+'%';
           }else{
             left = this.options.value[i];
             this.tooltips[i].style[this.stylePos] = percentage[i] + '%';
           }
-          if(this.options.tooltip_split){
-            formattedTooltipVal = formatter(left);
+          if(
+            this.options.tooltip_split ||
+            (!this.options.limit && this.options.range)
+            ){
+              formattedTooltipVal = formatter(left);
           }else{
             formattedTooltipVal = formatter(left, right);
           }
@@ -1045,10 +1096,10 @@
         this.offset = this._offset(this.sliderElem);
         this.size = this.sliderElem[this.sizePos];
 
+
         var percentage = this._getPercentage(ev);
         this.downElement = ev.target;
         this.downPercentage = percentage;
-
 
         for(i=0; i<this.selections.length; i++){
           if(ev.target === this.selections[i]){
@@ -1073,8 +1124,8 @@
 
         this.inDrag = true;
 
-        
         var val = this._calculateValue();
+
         this._trigger('slideStart', val);
 
         this._setDataVal(val);
@@ -1165,11 +1216,11 @@
         if(this.options.reversed){
           percentage = 100 - percentage;
         }
+
         this._adjustPercentageForRangeSliders(this.downElement, percentage);
 
-        this._layout();
-
         var val = this._calculateValue();
+        this._layout();
 
         this.setValue(val, true);
 
@@ -1180,14 +1231,7 @@
 
         for(i=0; i<this.handles.length; i++){
           if(el === this.handles[i]){
-            // if(this.options.reversed){
-            //  percentage = 100 - percentage;
-            // }
-            // console.log(percentage);
             this.percentage[i] = percentage;
-            // left = selection[i];
-            // right = selection[i+1];
-            // handle.percentage = percentage;
           }
         }
         for(i=0; i<this.selections.length; i++){
@@ -1197,15 +1241,6 @@
             this.percentage[i] = this.downNext + diff;
           }
         }
-        // if (this.options.range) {
-        //  if (this.dragged === 0 && this.percentage[1] < percentage) {
-        //    this.percentage[0] = this.percentage[1];
-        //    this.dragged = 1;
-        //  } else if (this.dragged === 1 && this.percentage[0] > percentage) {
-        //    this.percentage[1] = this.percentage[0];
-        //    this.dragged = 0;
-        //  }
-        // }
       },
       _mouseup: function() {
         this.downElement = this.downPrev = this.downNext = this.downPercentage =  null;
@@ -1228,30 +1263,42 @@
           this._hideTooltip();
         }
         var val = this._calculateValue();
-
-        // console.log(val, this.percentage)
-
-        // this._layout();
-
         this._setDataVal(val);
         this._trigger('slideStop', val);
         return false;
       },
       _calculateValue: function() {
-        var val=[], i, value, percentage;
-        if (this.options.range) {
+        var val=[], i, value, percentage, next, previous, step, limit;
+
+        if (this.options.range || this.options.children || this.options.value.length > 1) {
           for(i=0; i<this.percentage.length; i++){
             percentage = this.percentage[i];
-            // if(this.options.reversed){
-            //  percentage = 100 - percentage;
-            // }
-            value = (Math.min(this.options.max, this.options.min + Math.round((this.diff * percentage/100)/this.options.step)*this.options.step));
+            next = this.percentage[i+1]?this.percentage[i+1]:100;
+            previous = this.percentage[i-1]?this.percentage[i-1]:0;
+            step = parseFloat(this.options.step);
+            value = (Math.min(this.options.max, this.options.min + Math.round((this.diff * percentage/100)/step)*step));
+
+            if(typeof this.options.limit === 'boolean'){
+              val.push(value);
+              continue;
+            }
+            limit = (this.options.limit !== false) ? parseFloat(this.options.limit) : step;
+            
+            
+            next = (Math.min(this.options.max, this.options.min + Math.round((this.diff * next/100)/step)*step));
+
+            previous = (Math.min(this.options.max, this.options.min + (this.diff * previous/100)/step*step));
+
             value = this._applyPrecision(value);
+            if(value >= next - limit && value > this.options.value[i]){
+              value = (i === this.percentage.length-1)?value:this._applyPrecision(next) - this.options.limit;
+            }else if(value <= previous+limit && value < this.options.value[i]){
+              value = (i === 0)?value:this._applyPrecision(previous) + this.options.limit;
+            }
             val.push(value);
           }
         } else {
           percentage = this.percentage[0];
-          // console.log(percentage);
           if(this.options.reversed){
               percentage = 100 - percentage;
           }
@@ -1267,7 +1314,6 @@
           this.options.value = [val, this.options.value[1]];
         }
         return val;
-        // return this.options.value
       },
       _applyPrecision: function(val) {
         var precision = this.options.precision || this._getNumDigitsAfterDecimalPlace(this.step);
@@ -1291,7 +1337,9 @@
           ev = ev.touches[0];
         }
         var percentage = (ev[this.mousePos] - this.offset[this.stylePos])*100/this.size;
+
         percentage = Math.round(percentage/this.stepPercentage)*this.stepPercentage;
+
         return Math.max(0, Math.min(100, percentage));
       },
       _validateInputValue: function(val) {
@@ -1421,9 +1469,9 @@
     }
 
     $(window).on('load.bs.slider.data-api', function () {
-      $('.rangepicker').each(function(i, el){
+      $('.rangepicker').each(function(){
         var $rangepicker = $(this);
-        new Slider(el, $rangepicker.data());
+        $rangepicker.slider($rangepicker.data());
       });
       createSliderGroups.call(this);
     });

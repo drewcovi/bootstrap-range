@@ -40,6 +40,7 @@ module.exports = function(grunt) {
         immed: true,
         latedef: false,
         newcap: true,
+        evil: true,
         noarg: true,
         sub: true,
         undef: true,
