@@ -1,51 +1,51 @@
 describe("Public Method Tests", function() {
   var testSlider;
 
-  describe("slider constructor", function() {
-    it("reads and sets the 'id' attribute of the slider instance that is created", function() {
-      var sliderId = "mySlider";
+  describe("rangepicker constructor", function() {
+    it("reads and sets the 'id' attribute of the rangepicker instance that is created", function() {
+      var rangepickerId = "mySlider";
 
-      testSlider = $("#testSlider1").slider({
-        id : sliderId
+      testSlider = $("#testSlider1").rangepicker({
+        id : rangepickerId
       });
 
-      var sliderInstanceHasExpectedId = $("#testSlider1").siblings("div.slider").is("#" + sliderId);
-      expect(sliderInstanceHasExpectedId).toBeTruthy();
+      var rangepickerInstanceHasExpectedId = $("#testSlider1").siblings("div.bootstrap-range").is("#" + rangepickerId);
+      expect(rangepickerInstanceHasExpectedId).toBeTruthy();
     });
 
-    it("generates multiple slider instances from selector", function() {
+    it("generates multiple rangepicker instances from selector", function() {
 
-      $(".makeSlider").slider();
+      $(".makeSlider").rangepicker();
 
-      var sliderInstancesExists = $(".makeSlider").siblings().is(".slider");
-      expect(sliderInstancesExists).toBeTruthy();
+      var rangepickerInstancesExists = $(".makeSlider").siblings().is(".bootstrap-range");
+      expect(rangepickerInstancesExists).toBeTruthy();
 
-      var sliderInstancesCount = $(".makeSlider").siblings(".slider").length;
-      expect(sliderInstancesCount).toEqual(2);
+      var rangepickerInstancesCount = $(".makeSlider").siblings(".bootstrap-range").length;
+      expect(rangepickerInstancesCount).toEqual(2);
     });
 
     it("reads and sets the 'min' option properly", function() {
       var minVal = -5;
 
-      testSlider = $("#testSlider1").slider({
+      testSlider = $("#testSlider1").rangepicker({
         min : minVal
       });
-      testSlider.slider('setValue', minVal);
+      testSlider.rangepicker('setValue', minVal);
 
-      var sliderValue = testSlider.slider('getValue');
-      expect(sliderValue).toBe(minVal);
+      var rangepickerValue = testSlider.rangepicker('getValue');
+      expect(rangepickerValue).toBe(minVal);
     });
 
     it("reads and sets the 'max' option properly", function() {
       var maxVal = 15;
 
-      testSlider = $("#testSlider1").slider({
+      testSlider = $("#testSlider1").rangepicker({
         max : maxVal
       });
-      testSlider.slider('setValue', maxVal);
+      testSlider.rangepicker('setValue', maxVal);
 
-      var sliderValue = testSlider.slider('getValue');
-      expect(sliderValue).toBe(maxVal);
+      var rangepickerValue = testSlider.rangepicker('getValue');
+      expect(rangepickerValue).toBe(maxVal);
     });
 
     describe("reads and sets the 'step' option properly", function() {
@@ -54,59 +54,59 @@ describe("Public Method Tests", function() {
     });
 
     it("reads and sets the 'precision' option properly", function() {
-      testSlider = $("#testSlider1").slider({
+      testSlider = $("#testSlider1").rangepicker({
         precision: 2
       });
-      testSlider.slider('setValue', 8.115);
+      testSlider.rangepicker('setValue', 8.115);
       
-      var sliderValue = testSlider.slider('getValue');
-      expect(sliderValue).toBe(8.12);
+      var rangepickerValue = testSlider.rangepicker('getValue');
+      expect(rangepickerValue).toBe(8.12);
     });
 
     it("reads and sets the 'orientation' option properly", function() {
       var orientationVal = "vertical";
 
-      testSlider = $("#testSlider1").slider({
+      testSlider = $("#testSlider1").rangepicker({
         orientation : orientationVal
       });
       
-      var orientationClassApplied = $("#testSlider1").siblings("div.slider").hasClass("slider-vertical");
+      var orientationClassApplied = $("#testSlider1").siblings("div.bootstrap-range").hasClass("rangepicker-vertical");
       expect(orientationClassApplied).toBeTruthy();
     });
 
     it("reads and sets the 'value' option properly", function() {
       var val = 8;
 
-      testSlider = $("#testSlider1").slider({
+      testSlider = $("#testSlider1").rangepicker({
         value : val
       });
-      testSlider.slider('setValue', val);
+      testSlider.rangepicker('setValue', val);
 
-      var sliderValue = testSlider.slider('getValue');
-      expect(sliderValue).toBe(val);
+      var rangepickerValue = testSlider.rangepicker('getValue');
+      expect(rangepickerValue).toBe(val);
     });
 
     it("reads and sets the 'selection' option properly", function() {
       var selectionVal = "after",
           maxSliderVal = 10;
 
-      testSlider = $("#testSlider1").slider({
+      testSlider = $("#testSlider1").rangepicker({
         selection : selectionVal
       });
-      testSlider.slider('setValue', maxSliderVal);
+      testSlider.rangepicker('setValue', maxSliderVal);
 
-      var sliderSelectionWidthAtMaxValue = $("#testSlider1").siblings(".slider").children("div.slider-track").children("div.slider-selection").width();
-      expect(sliderSelectionWidthAtMaxValue).toBe(0);
+      var rangepickerSelectionWidthAtMaxValue = $("#testSlider1").siblings(".bootstrap-range").children("div.rangepicker-track").children("div.rangepicker-selection").width();
+      expect(rangepickerSelectionWidthAtMaxValue).toBe(0);
     });
 
     it("reads and sets the 'handle' option properly", function() {
       var handleVal = "triangle";
 
-      testSlider = $("#testSlider1").slider({
+      testSlider = $("#testSlider1").rangepicker({
         handle : handleVal
       });
       
-      var handleIsSetToTriangle = $("#testSlider1").siblings(".slider").children("div.slider-track").children("div.slider-handle").hasClass("triangle");
+      var handleIsSetToTriangle = $("#testSlider1").siblings(".bootstrap-range").children("div.rangepicker-track").children("div.rangepicker-handle").hasClass("triangle");
       expect(handleIsSetToTriangle).toBeTruthy();
     });
 
@@ -114,13 +114,13 @@ describe("Public Method Tests", function() {
       var reversedVal = true,
           maxSliderVal = 10;
 
-      testSlider = $("#testSlider1").slider({
+      testSlider = $("#testSlider1").rangepicker({
         reversed : reversedVal
       });
-      testSlider.slider('setValue', maxSliderVal);
+      testSlider.rangepicker('setValue', maxSliderVal);
       
-      var sliderSelectionHeightAtMaxValue = $("#testSlider1").siblings(".slider").children("div.slider-track").children("div.slider-selection").width();
-      expect(sliderSelectionHeightAtMaxValue).toBe(0);
+      var rangepickerSelectionHeightAtMaxValue = $("#testSlider1").siblings(".bootstrap-range").children("div.rangepicker-track").children("div.rangepicker-selection").width();
+      expect(rangepickerSelectionHeightAtMaxValue).toBe(0);
     });
 
     /* TODO: Fix this test! It keeps throwing a weird bug where is says '955' instead of '9' for the value */
@@ -129,75 +129,75 @@ describe("Public Method Tests", function() {
     //     return 'Current value: ' + value;
     //   };
 
-    //   testSlider = $("#testSlider1").slider({
+    //   testSlider = $("#testSlider1").rangepicker({
     //     formatter : tooltipFormater
     //   });
-    //   testSlider.slider('setValue', 9);
+    //   testSlider.rangepicker('setValue', 9);
 
-    //   var tooltipMessage = $("#testSlider1").siblings(".slider").find("div.tooltip").children("div.tooltip-inner").text();
+    //   var tooltipMessage = $("#testSlider1").siblings(".bootstrap-range").find("div.tooltip").children("div.tooltip-inner").text();
     //   var expectedMessage = tooltipFormater(9);
     //   expect(tooltipMessage).toBe(expectedMessage);
     // });
 
     it("reads and sets the 'enabled' option properly", function() {
-      testSlider = $("#testSlider1").slider({
+      testSlider = $("#testSlider1").rangepicker({
         enabled: false
       });
-      var isEnabled = testSlider.slider('isEnabled');
+      var isEnabled = testSlider.rangepicker('isEnabled');
       expect(isEnabled).not.toBeTruthy();
     });
 
     describe("reads and sets the 'tooltip' option properly", function() {
       it("tooltip is not shown if set to 'hide'", function() {
-        testSlider = $("#testSlider1").slider({
+        testSlider = $("#testSlider1").rangepicker({
           tooltip : "hide"
         });
         
-        var tooltipIsHidden = testSlider.siblings(".slider").children("div.tooltip").hasClass("hide");
+        var tooltipIsHidden = testSlider.siblings(".bootstrap-range").children("div.tooltip").hasClass("hide");
         expect(tooltipIsHidden).toBeTruthy();
       });
 
       it("tooltip is shown during sliding if set to 'show'", function() {
-        testSlider = $("#testSlider1").slider({
+        testSlider = $("#testSlider1").rangepicker({
           tooltip : "show"
         });
 
-        var tooltipIsHidden = !($("#testSlider1").siblings(".slider").children("div.tooltip").hasClass("in"));
+        var tooltipIsHidden = !($("#testSlider1").siblings(".bootstrap-range").children("div.tooltip").hasClass("in"));
         expect(tooltipIsHidden).toBeTruthy();
         
         // Trigger hover
         var mouseenterEvent = document.createEvent("Events");
         mouseenterEvent.initEvent("mouseenter", true, true);
-        testSlider.data('slider').sliderElem.dispatchEvent(mouseenterEvent);
+        testSlider.data('rangepicker').rangepickerElem.dispatchEvent(mouseenterEvent);
 
-        var tooltipIsShownAfterSlide = $("#testSlider1").siblings(".slider").children("div.tooltip").hasClass("in");
+        var tooltipIsShownAfterSlide = $("#testSlider1").siblings(".bootstrap-range").children("div.tooltip").hasClass("in");
         expect(tooltipIsShownAfterSlide).toBeTruthy();
       });
 
       it("tooltip is always shown if set to 'always'", function() {
-        testSlider = $("#testSlider1").slider({
+        testSlider = $("#testSlider1").rangepicker({
           tooltip : "always"
         });
         
-        var tooltipIsShown = $("#testSlider1").siblings(".slider").children("div.tooltip").hasClass("in");
+        var tooltipIsShown = $("#testSlider1").siblings(".bootstrap-range").children("div.tooltip").hasClass("in");
         expect(tooltipIsShown).toBeTruthy();
       });
 
       it("defaults to 'show' option if invalid value is passed", function() {
-        testSlider = $("#testSlider1").slider({
+        testSlider = $("#testSlider1").rangepicker({
           tooltip : "invalid option value"
         });
 
-        var tooltipIsHidden = !($("#testSlider1").siblings(".slider").children("div.tooltip").hasClass("in"));
+        var tooltipIsHidden = !($("#testSlider1").siblings(".bootstrap-range").children("div.tooltip").hasClass("in"));
         expect(tooltipIsHidden).toBeTruthy();
 
         // Trigger hover
         var mouseenterEvent = document.createEvent("Events");
         mouseenterEvent.initEvent("mouseenter", true, true);
-        testSlider.data('slider').sliderElem.dispatchEvent(mouseenterEvent);
+        testSlider.data('rangepicker').rangepickerElem.dispatchEvent(mouseenterEvent);
 
         
-        var tooltipIsShownOnHover = $("#testSlider1").siblings(".slider").children("div.tooltip").hasClass("in");
+        var tooltipIsShownOnHover = $("#testSlider1").siblings(".bootstrap-range").children("div.tooltip").hasClass("in");
         expect(tooltipIsShownOnHover).toBeTruthy();
       });
     });
@@ -207,37 +207,37 @@ describe("Public Method Tests", function() {
   describe("'setValue()' tests", function() {
     var formatInvalidInputMsg = function(invalidValue) { return "Invalid input value '" + invalidValue + "' passed in"; };
 
-    describe("if slider is a single value slider", function() {
+    describe("if rangepicker is a single value rangepicker", function() {
       beforeEach(function() {
-        testSlider = $("#testSlider1").slider();
+        testSlider = $("#testSlider1").rangepicker();
       });
 
-      it("properly sets the value of the slider when given a numeric value", function() {
+      it("properly sets the value of the rangepicker when given a numeric value", function() {
         var valueToSet = 5;
-        testSlider.slider('setValue', valueToSet);
+        testSlider.rangepicker('setValue', valueToSet);
 
-        var sliderValue = testSlider.slider('getValue');
-        expect(sliderValue).toBe(valueToSet);
+        var rangepickerValue = testSlider.rangepicker('getValue');
+        expect(rangepickerValue).toBe(valueToSet);
       });
 
-      it("if a value passed in is greater than the max (10), the slider only goes to the max", function() {
+      it("if a value passed in is greater than the max (10), the rangepicker only goes to the max", function() {
         var maxValue = 10,
             higherThanSliderMaxVal = maxValue + 5;
       
-        testSlider.slider('setValue', higherThanSliderMaxVal);
+        testSlider.rangepicker('setValue', higherThanSliderMaxVal);
 
-        var sliderValue = testSlider.slider('getValue');
-        expect(sliderValue).toBe(maxValue);
+        var rangepickerValue = testSlider.rangepicker('getValue');
+        expect(rangepickerValue).toBe(maxValue);
       });
 
-      it("if a value passed in is less than the min (0), the slider only goes to the min", function() {
+      it("if a value passed in is less than the min (0), the rangepicker only goes to the min", function() {
         var minValue = 0,
             lowerThanSliderMaxVal = minValue - 5;
       
-        testSlider.slider('setValue', lowerThanSliderMaxVal);
+        testSlider.rangepicker('setValue', lowerThanSliderMaxVal);
 
-        var sliderValue = testSlider.slider('getValue');
-        expect(sliderValue).toBe(minValue);
+        var rangepickerValue = testSlider.rangepicker('getValue');
+        expect(rangepickerValue).toBe(minValue);
       });
 
       describe("when an invalid value type is passed in", function() {
@@ -247,34 +247,34 @@ describe("Public Method Tests", function() {
           invalidValue = "a";
         });
 
-        it("throws an error and does not alter the slider value", function() {
-          var originalSliderValue = testSlider.slider('getValue');
+        it("throws an error and does not alter the rangepicker value", function() {
+          var originalSliderValue = testSlider.rangepicker('getValue');
 
           var settingValue = function() {
-            testSlider.slider('setValue', invalidValue);
+            testSlider.rangepicker('setValue', invalidValue);
           };
           expect(settingValue).toThrow(new Error( formatInvalidInputMsg(invalidValue) ));
 
-          var sliderValue = testSlider.slider('getValue');
-          expect(sliderValue).toBe(originalSliderValue);
+          var rangepickerValue = testSlider.rangepicker('getValue');
+          expect(rangepickerValue).toBe(originalSliderValue);
         });
       });
     });
 
-    describe("if slider is a range slider", function() {
+    describe("if rangepicker is a range rangepicker", function() {
       beforeEach(function() {
-        testSlider = $("#testSlider1").slider({
+        testSlider = $("#testSlider1").rangepicker({
           value : [3, 8]
         });
       });
 
       it("properly sets the values if both within the max and min", function() {
         var valuesToSet = [5, 7];
-        testSlider.slider('setValue', valuesToSet);
+        testSlider.rangepicker('setValue', valuesToSet);
 
-        var sliderValues = testSlider.slider('getValue');
-        expect(sliderValues[0]).toBe(valuesToSet[0]);
-        expect(sliderValues[1]).toBe(valuesToSet[1]);
+        var rangepickerValues = testSlider.rangepicker('getValue');
+        expect(rangepickerValues[0]).toBe(valuesToSet[0]);
+        expect(rangepickerValues[1]).toBe(valuesToSet[1]);
       });
 
       describe("caps values to the min if they are set to be less than the min", function() {
@@ -282,17 +282,17 @@ describe("Public Method Tests", function() {
             otherValue = 7;
 
         it("first value is capped to min", function() {
-          testSlider.slider('setValue', [minValue, otherValue]);
+          testSlider.rangepicker('setValue', [minValue, otherValue]);
           
-          var sliderValues = testSlider.slider('getValue');
-          expect(sliderValues[0]).toBe(0);
+          var rangepickerValues = testSlider.rangepicker('getValue');
+          expect(rangepickerValues[0]).toBe(0);
         });
 
         it("second value is capped to min", function() {
-          testSlider.slider('setValue', [otherValue, minValue]);
+          testSlider.rangepicker('setValue', [otherValue, minValue]);
           
-          var sliderValues = testSlider.slider('getValue');
-          expect(sliderValues[1]).toBe(0);
+          var rangepickerValues = testSlider.rangepicker('getValue');
+          expect(rangepickerValues[1]).toBe(0);
         });
       });
 
@@ -301,17 +301,17 @@ describe("Public Method Tests", function() {
             otherValue = 7;
 
         it("first value is capped to max", function() {
-          testSlider.slider('setValue', [maxValue, otherValue]);
+          testSlider.rangepicker('setValue', [maxValue, otherValue]);
           
-          var sliderValues = testSlider.slider('getValue');
-          expect(sliderValues[0]).toBe(10);
+          var rangepickerValues = testSlider.rangepicker('getValue');
+          expect(rangepickerValues[0]).toBe(10);
         });
 
         it("second value is capped to max", function() {
-          testSlider.slider('setValue', [otherValue, maxValue]);
+          testSlider.rangepicker('setValue', [otherValue, maxValue]);
           
-          var sliderValues = testSlider.slider('getValue');
-          expect(sliderValues[1]).toBe(10);
+          var rangepickerValues = testSlider.rangepicker('getValue');
+          expect(rangepickerValues[1]).toBe(10);
         });
       });
 
@@ -321,13 +321,13 @@ describe("Public Method Tests", function() {
 
         it("first value is of invalid type", function() {
           var setSliderValueFn = function() {
-            testSlider.slider('setValue', [invalidValue, otherValue]);
+            testSlider.rangepicker('setValue', [invalidValue, otherValue]);
           };
           expect(setSliderValueFn).toThrow(new Error( formatInvalidInputMsg(invalidValue) ));
         });
         it("second value is of invalid type", function() {
           var setSliderValueFn = function() {
-            testSlider.slider('setValue', [otherValue, invalidValue]);
+            testSlider.rangepicker('setValue', [otherValue, invalidValue]);
           };
           expect(setSliderValueFn).toThrow(new Error( formatInvalidInputMsg(invalidValue) ));
         });
@@ -335,7 +335,7 @@ describe("Public Method Tests", function() {
     });
     
     it("if second argument is true, the 'slide' event is triggered", function() {
-      var testSlider = $("#testSlider1").slider({
+      var testSlider = $("#testSlider1").rangepicker({
         value : 3
       });
 
@@ -345,42 +345,42 @@ describe("Public Method Tests", function() {
         expect(newSliderVal).toEqual(evt.value);
       });
 
-      testSlider.slider('setValue', newSliderVal, true);
+      testSlider.rangepicker('setValue', newSliderVal, true);
     });
 
   });
 
 
   describe("'getValue()' tests", function() {
-    it("returns the current value of the slider", function() {
-      testSlider = $("#testSlider1").slider();
+    it("returns the current value of the rangepicker", function() {
+      testSlider = $("#testSlider1").rangepicker();
 
       var valueToSet = 5;
-      testSlider.slider('setValue', valueToSet);
+      testSlider.rangepicker('setValue', valueToSet);
 
-      var sliderValue = testSlider.slider('getValue');
-      expect(sliderValue).toBe(valueToSet);
+      var rangepickerValue = testSlider.rangepicker('getValue');
+      expect(rangepickerValue).toBe(valueToSet);
     });
   });
 
 
   describe("'destroy()' tests", function() {
-    describe("slider instance tests", function() {
+    describe("rangepicker instance tests", function() {
       beforeEach(function() {
-        testSlider = $("#testSlider1").slider();
+        testSlider = $("#testSlider1").rangepicker();
       });
 
-      it("removes the extra DOM elements associated with a slider", function() {
-        testSlider.slider('destroy');
+      it("removes the extra DOM elements associated with a rangepicker", function() {
+        testSlider.rangepicker('destroy');
 
-        var sliderParentElement = $("#testSlider1").parent('div.slider').length,
-            sliderChildrenElements = $("#testSlider1").siblings('div.slider-track, div.tooltip').length;
+        var rangepickerParentElement = $("#testSlider1").parent('div.rangepicker').length,
+            rangepickerChildrenElements = $("#testSlider1").siblings('div.rangepicker-track, div.tooltip').length;
         
-        expect(sliderParentElement).toBe(0);
-        expect(sliderChildrenElements).toBe(0);
+        expect(rangepickerParentElement).toBe(0);
+        expect(rangepickerChildrenElements).toBe(0);
       });
 
-      describe("unbinds all slider events", function() {
+      describe("unbinds all rangepicker events", function() {
         var flag, evtName;
 
         beforeEach(function() {
@@ -392,7 +392,7 @@ describe("Public Method Tests", function() {
           testSlider.on(evtName, function() {
             flag = true;
           });
-          testSlider.slider('destroy');
+          testSlider.rangepicker('destroy');
           testSlider.trigger(evtName);
           expect(flag).toBeFalsy();
         });
@@ -402,7 +402,7 @@ describe("Public Method Tests", function() {
           testSlider.on(evtName, function() {
             flag = true;
           });
-          testSlider.slider('destroy');
+          testSlider.rangepicker('destroy');
           testSlider.trigger(evtName);
           expect(flag).toBeFalsy();
         });
@@ -412,7 +412,7 @@ describe("Public Method Tests", function() {
           testSlider.on(evtName, function() {
             flag = true;
           });
-          testSlider.slider('destroy');
+          testSlider.rangepicker('destroy');
           testSlider.trigger(evtName);
           expect(flag).toBeFalsy();
         });
@@ -422,7 +422,7 @@ describe("Public Method Tests", function() {
           testSlider.on(evtName, function() {
             flag = true;
           });
-          testSlider.slider('destroy');
+          testSlider.rangepicker('destroy');
           testSlider.trigger(evtName);
           expect(flag).toBeFalsy();
         });
@@ -435,67 +435,67 @@ describe("Public Method Tests", function() {
   });
 
   describe("'enable()' tests", function() {
-    it("correctly enables a slider", function() {
-      testSlider = $("#testSlider1").slider({
+    it("correctly enables a rangepicker", function() {
+      testSlider = $("#testSlider1").rangepicker({
         enabled: false
       });
-      testSlider.slider("enable");
-      var isEnabled = testSlider.slider("isEnabled");
+      testSlider.rangepicker("enable");
+      var isEnabled = testSlider.rangepicker("isEnabled");
       expect(isEnabled).toBeTruthy();
     });
   });
 
   describe("'disable()' tests", function() {
-    it("correctly disable a slider", function() {
-      testSlider = $("#testSlider1").slider();
-      testSlider.slider("disable");
-      var isEnabled = testSlider.slider("isEnabled");
+    it("correctly disable a rangepicker", function() {
+      testSlider = $("#testSlider1").rangepicker();
+      testSlider.rangepicker("disable");
+      var isEnabled = testSlider.rangepicker("isEnabled");
       expect(isEnabled).not.toBeTruthy();
     });
   });
 
   describe("'toggle()' tests", function() {
-    it("correctly enables a disabled slider", function() {
-      testSlider = $("#testSlider1").slider({
+    it("correctly enables a disabled rangepicker", function() {
+      testSlider = $("#testSlider1").rangepicker({
         enabled: false
       });
-      testSlider.slider("toggle");
-      var isEnabled = testSlider.slider("isEnabled");
+      testSlider.rangepicker("toggle");
+      var isEnabled = testSlider.rangepicker("isEnabled");
       expect(isEnabled).toBeTruthy();
     });
 
-    it("correctly disables an enabled slider", function() {
-      testSlider = $("#testSlider1").slider();
-      testSlider.slider("toggle");
-      var isEnabled = testSlider.slider("isEnabled");
+    it("correctly disables an enabled rangepicker", function() {
+      testSlider = $("#testSlider1").rangepicker();
+      testSlider.rangepicker("toggle");
+      var isEnabled = testSlider.rangepicker("isEnabled");
       expect(isEnabled).not.toBeTruthy();
     });
   });
 
   describe("'isEnabled()' tests", function() {
-    it("returns true for an enabled slider", function() {
-      testSlider = $("#testSlider1").slider({
+    it("returns true for an enabled rangepicker", function() {
+      testSlider = $("#testSlider1").rangepicker({
         id: "enabled",
         enabled: true
       });
       
-      var isEnabled = testSlider.slider("isEnabled");
-      var $slider = testSlider.siblings("#enabled");
-      var hasDisabledClass = $slider.hasClass("slider") && $slider.hasClass("#enabled");
+      var isEnabled = testSlider.rangepicker("isEnabled");
+      var $rangepicker = testSlider.siblings("#enabled");
+      var hasDisabledClass = $rangepicker.hasClass("rangepicker") && $rangepicker.hasClass("#enabled");
       
       expect(isEnabled).toBeTruthy();
       expect(hasDisabledClass).not.toBeTruthy();
     });
 
-    it("returns false for a disabled slider", function() {
-      testSlider = $("#testSlider1").slider({
+    it("returns false for a disabled rangepicker", function() {
+      testSlider = $("#testSlider1").rangepicker({
         id: "disabled",
         enabled: false
       });
 
-      var isEnabled = testSlider.slider("isEnabled");
-      var $slider = testSlider.siblings("#disabled");
-      var hasDisabledClass = $slider.hasClass("slider") && $slider.hasClass("slider-disabled");
+      var isEnabled = testSlider.rangepicker("isEnabled");
+      var $rangepicker = testSlider.siblings("#disabled");
+      var hasDisabledClass = $rangepicker.hasClass("bootstrap-range") && $rangepicker.hasClass("rangepicker-disabled");
 
       expect(isEnabled).not.toBeTruthy();
       expect(hasDisabledClass).toBeTruthy();
@@ -503,35 +503,35 @@ describe("Public Method Tests", function() {
   });
 
   it("get attribute", function() {
-    testSlider = $("#testSlider1").slider();
+    testSlider = $("#testSlider1").rangepicker();
 
-    var sliderMaxValue = testSlider.slider('getAttribute', 'max');
-    expect(sliderMaxValue).toBe(10);
+    var rangepickerMaxValue = testSlider.rangepicker('getAttribute', 'max');
+    expect(rangepickerMaxValue).toBe(10);
   });
 
-  it("changes slider from basic to range", function() {
-    testSlider = $("#makeRangeSlider").slider();
-    testSlider.slider('setAttribute', 'range', true).slider('refresh');
+  it("changes rangepicker from basic to range", function() {
+    testSlider = $("#makeRangeSlider").rangepicker();
+    testSlider.rangepicker('setAttribute', 'range', true).rangepicker('refresh');
 
-    var isRangeSlider = $("#changeOrientationSlider").parent("div.slider").find('.slider-handle').last().hasClass('hide');
+    var isRangeSlider = $("#changeOrientationSlider").parent("div.rangepicker").find('.rangepicker-handle').last().hasClass('hide');
     expect(isRangeSlider).toBeFalsy();
   });
 
   it("setAttribute: changes the 'data-orientation' property from horizontal to vertical", function() {
-    testSlider = $("#changeOrientationSlider").slider({
+    testSlider = $("#changeOrientationSlider").rangepicker({
       id: "changeOrientationSliderElem"
     });
-    testSlider.slider('setAttribute', 'orientation', 'vertical').slider('refresh');
+    testSlider.rangepicker('setAttribute', 'orientation', 'vertical').rangepicker('refresh');
 
-    var $slider = $("#changeOrientationSliderElem");
-    var orientationClassApplied = $slider.hasClass("slider-vertical");
+    var $rangepicker = $("#changeOrientationSliderElem");
+    var orientationClassApplied = $rangepicker.hasClass("rangepicker-vertical");
     
     expect(orientationClassApplied).toBeTruthy();
   });
 
   afterEach(function() {
     if(testSlider) {
-      testSlider.slider('destroy');
+      testSlider.rangepicker('destroy');
       testSlider = null;
     }
   });

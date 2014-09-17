@@ -3,14 +3,14 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Examples for bootstrap-slider plugin">
+    <meta name="description" content="Examples for bootstrap-rangepicker plugin">
     <meta name="author" content="">
 
-    <title>Slider for Bootstrap Examples Page</title>
+    <title>Rangepicker for Bootstrap Examples Page</title>
 
     <!-- core CSS -->
     <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/bootstrap-slider.css" rel="stylesheet">
+    <link href="css/bootstrap-rangepicker.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
     <style type='text/css'>
@@ -92,7 +92,7 @@
 			background-color: #E0E0E0;
 		}
 
-		.slider-example {
+		.rangepicker-example {
 			padding: 10px 0;
 			margin: 35px 0;
 		}
@@ -108,7 +108,7 @@
 
     <style type='text/css'>
 		/* Example 1 custom styles */
-		#ex1Slider .slider-selection {
+		#ex1Slider .rangepicker-selection {
    			background: #BABABA;
   		}
 
@@ -117,22 +117,22 @@
     		height: 20px;
     		background: rgb(128, 128, 128);
   		}
-		#RC .slider-selection {
+		#RC .rangepicker-selection {
 		    background: #FF8282;
 		}
-		#RC .slider-handle {
+		#RC .rangepicker-handle {
 			background: red;
 		}
-		#GC .slider-selection {
+		#GC .rangepicker-selection {
 			background: #428041;
 		}
-		#GC .slider-handle {
+		#GC .rangepicker-handle {
 			background: green;
 		}
-		#BC .slider-selection {
+		#BC .rangepicker-selection {
 			background: #8283FF;
 		}
-		#BC .slider-handle {
+		#BC .rangepicker-handle {
 			border-bottom-color: blue;
 		}
 		#R, #G, #B {
@@ -151,12 +151,12 @@
     <div class="container">
 
       <div class="jumbotron">
-        <h1>Slider for Bootstrap <small>bootstrap-slider.js</small></h1>
-        <p class="lead">Examples for the bootstrap-slider component.<p>
+        <h1>Slider for Bootstrap <small>bootstrap-rangepicker.js</small></h1>
+        <p class="lead">Examples for the bootstrap-rangepicker component.<p>
       </div>
 
       <div class="examples">
-      	<div class='slider-example'>
+      	<div class='rangepicker-example'>
       		<h3>Example 1:</h3>
       		<p>Basic example with custom formatter and colored selected region via CSS.</p>
       		<div class="well">
@@ -176,14 +176,14 @@
 ###################
 
 // With JQuery
-$('#ex1').slider({
+$('#ex1').rangepicker({
 	formatter: function(value) {
 		return 'Current value: ' + value;
 	}
 });
 
 // Without JQuery
-var slider = new Slider('#ex1', {
+var rangepicker = new Slider('#ex1', {
 	formatter: function(value) {
 		return 'Current value: ' + value;
 	}
@@ -194,14 +194,14 @@ var slider = new Slider('#ex1', {
        CSS
 ###################
 
-#ex1Slider .slider-selection {
+#ex1Slider .rangepicker-selection {
 	background: #BABABA;
 }
 
             </code></pre>
       	</div>
 
-      	<div class='slider-example'>
+      	<div class='rangepicker-example'>
       		<h3>Example 2:</h3>
       		<p>Range selector, options specified via data attribute.</p>
       		<div class="well">
@@ -304,15 +304,15 @@ Filter by price interval: &ltb&gt€ 10&lt/b&gt &ltinput id="ex2" type="range" c
 ###################
 
 // With JQuery
-$("#ex20, #ex21, #ex22").slider({});
+$("#ex20, #ex21, #ex22").rangepicker({});
 
 // Without JQuery
-var slider = new Slider('#ex2', {});
+var rangepicker = new Slider('#ex2', {});
 
             </code></pre>
       	</div>
 
-      	<div class='slider-example'>
+      	<div class='rangepicker-example'>
       		<h3>Example 3:</h3>
       		<p>Using events to work with the values and style the selection and handles via CSS. The tooltip is disabled and diferent shapes for the handles.</p>
       		<div class="well">
@@ -352,15 +352,15 @@ var RGBChange = function() {
 	$('#RGB').css('background', 'rgb('+r.getValue()+','+g.getValue()+','+b.getValue()+')')
 };
 
-var r = $('#R').slider()
+var r = $('#R').rangepicker()
 		.on('slide', RGBChange)
-		.data('slider');
-var g = $('#G').slider()
+		.data('rangepicker');
+var g = $('#G').rangepicker()
 		.on('slide', RGBChange)
-		.data('slider');
-var b = $('#B').slider()
+		.data('rangepicker');
+var b = $('#B').rangepicker()
 		.on('slide', RGBChange)
-		.data('slider');
+		.data('rangepicker');
 
 
 ###################
@@ -371,22 +371,22 @@ var b = $('#B').slider()
 	height: 20px;
 	background: rgb(128, 128, 128);
 }
-#RC .slider-selection {
+#RC .rangepicker-selection {
 	background: #FF8282;
 }
-#RC .slider-handle {
+#RC .rangepicker-handle {
 	background: red;
 }
-#GC .slider-selection {
+#GC .rangepicker-selection {
 	background: #428041;
 }
-#GC .slider-handle {
+#GC .rangepicker-handle {
 	background: green;
 }
-#BC .slider-selection {
+#BC .rangepicker-selection {
 	background: #8283FF;
 }
-#BC .slider-handle {
+#BC .rangepicker-handle {
 	border-bottom-color: blue;
 }
 #R, #G, #B {
@@ -396,7 +396,7 @@ var b = $('#B').slider()
             </code></pre>
       	</div>
 
-      	<div class='slider-example'>
+      	<div class='rangepicker-example'>
       		<h3>Example 4:</h3>
       		<p>Vertical Slider with reversed values (largest to smallest).</p>
       		<div class="well">
@@ -415,21 +415,21 @@ var b = $('#B').slider()
 ###################
 
 // With JQuery
-$("#ex4").slider({
+$("#ex4").rangepicker({
 	reversed : true
 });
 
 // Without JQuery
-var slider = new Slider("#ex4", {
+var rangepicker = new Slider("#ex4", {
 	reversed : true
 });
 
             </code></pre>
       	</div>
 
-      	<div class='slider-example'>
+      	<div class='rangepicker-example'>
       		<h3>Example 5:</h3>
-      		<p>Destroy instance of slider by calling destroy() method on slider instance via JavaScript.
+      		<p>Destroy instance of rangepicker by calling destroy() method on rangepicker instance via JavaScript.
       		<div class="well">
       			<input id="ex5" type="range" data-min="-5" data-max="20" data-step="1" data-value="0"/>
       			<button id="destroyEx5Slider" class='btn btn-danger'>Click to Destroy</button>
@@ -448,27 +448,27 @@ var slider = new Slider("#ex4", {
 ###################
 
 // With JQuery
-$("#ex5").slider();
+$("#ex5").rangepicker();
 
 // Without JQuery
-var slider = new Slider('#ex5');
+var rangepicker = new Slider('#ex5');
 
 $("#destroyEx5Slider").click(function() {
 	
 	// With JQuery
-	$("#ex5").slider('destroy');
+	$("#ex5").rangepicker('destroy');
 
 	// Without JQuery
-	slider.destroy();
+	rangepicker.destroy();
 });
 
 
             </code></pre>
       	</div>
 
-      	<div class='slider-example'>
+      	<div class='rangepicker-example'>
       		<h3>Example 6:</h3>
-      		<p>Able to bind to 'slide' JQuery event on slider, which is triggered whenever the slider is used.</p>
+      		<p>Able to bind to 'slide' JQuery event on rangepicker, which is triggered whenever the rangepicker is used.</p>
       		<div class="well">
       			<input id="ex6" type="range" data-min="-5" data-max="20" data-step="1" data-value="3"/>
       			<span id="ex6CurrentSliderValLabel">Current Slider Value: <span id="ex6SliderVal">3</span></span>
@@ -487,21 +487,21 @@ $("#destroyEx5Slider").click(function() {
 ###################
 
 // With JQuery
-$("#ex6").slider();
+$("#ex6").rangepicker();
 $("#ex6").on("slide", function(slideEvt) {
 	$("#ex6SliderVal").text(slideEvt.value);
 });
 
 // Without JQuery
-var slider = new Slider("#ex6");
-slider.on("slide", function(slideEvt) {
+var rangepicker = new Slider("#ex6");
+rangepicker.on("slide", function(slideEvt) {
 	$("#ex6SliderVal").text(slideEvt.value);
 });)
 
             </code></pre>
       	</div>
 
-      	<div class='slider-example'>
+      	<div class='rangepicker-example'>
       		<h3>Example 7:</h3>
       		<p>Sliders can be enabled and disabled.</p>
       		<div class="well">
@@ -522,32 +522,32 @@ slider.on("slide", function(slideEvt) {
 ###################
 
 // With JQuery
-$("#ex7").slider();
+$("#ex7").rangepicker();
 
 // Without JQuery
-var slider = new Slider("#ex7");
+var rangepicker = new Slider("#ex7");
 
 $("#ex7-enabled").click(function() {
 	if(this.checked) {
 		// With JQuery
-		$("#ex7").slider("enable");
+		$("#ex7").rangepicker("enable");
 
 		// Without JQuery
-		slider.enable();
+		rangepicker.enable();
 	}
 	else {
 		// With JQuery
-		$("#ex7").slider("disable");
+		$("#ex7").rangepicker("disable");
 
 		// Without JQuery
-		slider.disable();
+		rangepicker.disable();
 	}
 });
 
             </code></pre>
       	</div>
 
-      <div class='slider-example'>
+      <div class='rangepicker-example'>
       		<h3>Example 8:</h3>
       		<p>Tooltip can always be displayed.</p>
       		<div class="well">
@@ -566,19 +566,19 @@ $("#ex7-enabled").click(function() {
 ###################
 
 // With JQuery
-$("#ex8").slider({
+$("#ex8").rangepicker({
 	tooltip: 'always'
 });
 
 // Without JQuery
-var slider = new Slider("#ex8", {
+var rangepicker = new Slider("#ex8", {
 	tooltip: 'always'
 });
 
             </code></pre>
       	</div>
 
-      <div class='slider-example'>
+      <div class='rangepicker-example'>
       		<h3>Example 9:</h3>
       		<p>Precision (number of places after the decimal) can be specified.</p>
       		<div class="well">
@@ -596,13 +596,13 @@ var slider = new Slider("#ex8", {
 ###################
 
 // With JQuery
-$("#ex9").slider({
+$("#ex9").rangepicker({
 	precision: 2,
 	value: 8.115 // Slider will instantiate showing 8.12 due to specified precision
 });
 
 // Without JQuery
-var slider = new Slider("#ex9", {
+var rangepicker = new Slider("#ex9", {
 	precision: 2,
 	value: 8.115 // Slider will instantiate showing 8.12 due to specified precision
 });
@@ -610,7 +610,7 @@ var slider = new Slider("#ex9", {
 
             </code></pre>
       	</div>
-<div class='slider-example'>
+<div class='rangepicker-example'>
     <h3>Example 10:</h3>
     <p>Setting custom handlers.</p>
     <div class="well">
@@ -629,21 +629,21 @@ JavaScript
 ###################
 
 // With JQuery
-$("#ex10").slider({});
+$("#ex10").rangepicker({});
 
 // Without JQuery
-var slider = new Slider("#ex10", {});
+var rangepicker = new Slider("#ex10", {});
 
 ###################
  CSS
 ###################
-.slider-handle.custom {
+.rangepicker-handle.custom {
 background: transparent none;
 /* You can customize the handle and set a background image */
 }
 
 /* Or display content like unicode characters or fontawesome icons */
-.slider-handle.custom::before {
+.rangepicker-handle.custom::before {
 line-height: 20px;
 font-size: 20px;
 content: '\2605'; /*unicode star character*/
@@ -652,7 +652,7 @@ color: #726204;
       </code></pre>
   </div>
 
-  <div class='slider-example'>
+  <div class='rangepicker-example'>
       <h3>Example 11:</h3>
       <p>Using a custom step interval.</p>
       <div class="well">
@@ -671,10 +671,10 @@ JavaScript
 ###################
 
 // With JQuery
-$("#ex11").slider({step: 20000, min: 0, max: 200000});
+$("#ex11").rangepicker({step: 20000, min: 0, max: 200000});
 
 // Without JQuery
-var slider = new Slider("#ex11", {
+var rangepicker = new Slider("#ex11", {
 	step: 20000,
 	min: 0,
 	max: 200000
@@ -689,78 +689,78 @@ var slider = new Slider("#ex11", {
     <!-- core JavaScript
     ================================================== -->
     <script type='text/javascript' src="bower_components/jquery/dist/jquery.min.js"></script>
-    <script type='text/javascript' src="js/bootstrap-slider.js"></script>
+    <script type='text/javascript' src="js/bootstrap-rangepicker.js"></script>
     <script type='text/javascript'>
     	$(document).ready(function() {
     		/* Example 1 */
-	    	$('#ex1').slider({
+	    	$('#ex1').rangepicker({
 	          	formatter: function(value) {
 	            	return 'Current value: ' + value;
 	          	}
 	        });
 
 	    	/* Example 2 */
-	        // $("#ex20, #ex21, #ex22").slider({});
+	        // $("#ex20, #ex21, #ex22").rangepicker({});
 
 	        /* Example 3 */
 	        var RGBChange = function() {
 	          $('#RGB').css('background', 'rgb('+r.getValue()+','+g.getValue()+','+b.getValue()+')')
 	        };
 
-	        var r = $('#R').slider()
+	        var r = $('#R').rangepicker()
 	                	.on('slide', RGBChange)
-	                	.data('slider');
-	        var g = $('#G').slider()
+	                	.data('rangepicker');
+	        var g = $('#G').rangepicker()
 	                	.on('slide', RGBChange)
-	                	.data('slider');
-	        var b = $('#B').slider()
+	                	.data('rangepicker');
+	        var b = $('#B').rangepicker()
 	                	.on('slide', RGBChange)
-	                	.data('slider');
+	                	.data('rangepicker');
 
 	        /* Example 4 */
-	        $("#ex4").slider({
+	        $("#ex4").rangepicker({
 	        	reversed : true
 	        });
 
 	        /* Example 5 */
-	        $("#ex5").slider();
+	        $("#ex5").rangepicker();
 			$("#destroyEx5Slider").click(function() {
-				$("#ex5").slider('destroy');
+				$("#ex5").rangepicker('destroy');
 			});
 
 			/* Example 6 */
-			$("#ex6").slider();
+			$("#ex6").rangepicker();
 			$("#ex6").on('slide', function(slideEvt) {
 				$("#ex6SliderVal").text(slideEvt.value);
 			});
 
 			/* Example 7 */
-			$("#ex7").slider();
+			$("#ex7").rangepicker();
 			$("#ex7-enabled").click(function() {
 				if(this.checked) {
-					$("#ex7").slider("enable");
+					$("#ex7").rangepicker("enable");
 				}
 				else {
-					$("#ex7").slider("disable");
+					$("#ex7").rangepicker("disable");
 				}
 			});
 
 			/* Example 8 */
-			$("#ex8").slider({
+			$("#ex8").rangepicker({
 				tooltip: 'always'
 			});
 
 			/* Example 9 */
-			$("#ex9").slider({
+			$("#ex9").rangepicker({
 				precision: 2,
 				value: 8.115 
 			});
 
 	      	/* Example 10 */
-	      	$("#ex10").slider({});
+	      	$("#ex10").rangepicker({});
 
 	      	/* Example 11 */
-	      	$("#ex11").slider({
+	      	$("#ex11").rangepicker({
 		        step: 20000,
 		        min: 0,
 		        max: 200000

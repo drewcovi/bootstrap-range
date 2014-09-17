@@ -1,15 +1,15 @@
 describe("Namespace Tests", function() {
   beforeEach(function() {
     runs(function() {
-      $.fn.slider = function() {};
+      $.fn.rangepicker = function() {};
     });
   });
 
-  it("sets the plugin namespace to be 'bootstrapSlider' if $.fn.slider is already defined", function() {
+  it("sets the plugin namespace to be 'bootstrapRangepicker' if $.fn.rangepicker is already defined", function() {
     var scriptLoaded;
 
     runs(function() {
-      $.getScript("js/bootstrap-slider.js", function() {
+      $.getScript("js/bootstrap-rangepicker.js", function() {
         scriptLoaded = true;
       });
     });
@@ -19,22 +19,22 @@ describe("Namespace Tests", function() {
     });
 
     runs(function() {
-      expect($.fn.bootstrapSlider).toBeDefined();
+      expect($.fn.bootstrapRangepicker).toBeDefined();
     });
   });
 
   afterEach(function() {
     /*
-      Set the namespaces back to undefined and reload slider
-      So that namespace is returned to $.fn.slider
+      Set the namespaces back to undefined and reload rangepicker
+      So that namespace is returned to $.fn.rangepicker
     */
     var scriptLoaded;
 
     runs(function() {
       $.fn.bootstrapSlider = undefined;
-      $.fn.slider = undefined;
+      $.fn.rangepicker = undefined;
 
-      $.getScript("js/bootstrap-slider.js", function() {
+      $.getScript("js/bootstrap-rangepicker.js", function() {
         scriptLoaded = true;
       });
     });

@@ -9,13 +9,13 @@ describe("Keyboard Support Tests", function() {
       initialSliderVal = 5;
 
 
-  describe("Clicking on slider handle automatically gives it focus", function() {
+  describe("Clicking on rangepicker handle automatically gives it focus", function() {
     
     beforeEach(function() {
-      testSlider = $("#testSlider1").slider({
+      testSlider = $("#testSlider1").rangepicker({
         id: 'testSlider'
       });
-      handle1 = $("#testSlider").find(".slider-track > .slider-handle:first");
+      handle1 = $("#testSlider").find(".rangepicker-track > .rangepicker-handle:first");
     });
 
     it("clicking on handle1 gives focus to handle1", function() {
@@ -28,14 +28,14 @@ describe("Keyboard Support Tests", function() {
     });
   });
 
-  describe("When slider handle has TAB focus", function() {
+  describe("When rangepicker handle has TAB focus", function() {
 
     it("should display it's tooltip if 'tooltip' option is set to 'show'", function() {
-      testSlider = $("#testSlider1").slider({
+      testSlider = $("#testSlider1").rangepicker({
         id: 'testSlider',
         tooltip: 'show'
       });
-      handle1 = $("#testSlider").find(".slider-track > .slider-handle:first");
+      handle1 = $("#testSlider").find(".rangepicker-track > .rangepicker-handle:first");
 
       // Check for no tooltip before focus
       var tooltipIsShown = $("#testSlider").find("div.tooltip").hasClass("in");
@@ -49,11 +49,11 @@ describe("Keyboard Support Tests", function() {
     });
 
     it("should not display it's tooltip if 'tooltip' option is set to 'hide'", function() {
-      testSlider = $("#testSlider1").slider({
+      testSlider = $("#testSlider1").rangepicker({
         id: 'testSlider',
         tooltip: 'hide'
       });
-      handle1 = $("#testSlider").find(".slider-track > .slider-handle:first");
+      handle1 = $("#testSlider").find(".rangepicker-track > .rangepicker-handle:first");
 
       // Check for hidden tooltip before focus
       var tooltipIsHidden = $("#testSlider").children("div.tooltip").hasClass("hide");
@@ -67,11 +67,11 @@ describe("Keyboard Support Tests", function() {
     });
 
     it("should not affect the tooltip display if 'tooltip' option is set to 'always'", function() {
-      testSlider = $("#testSlider1").slider({
+      testSlider = $("#testSlider1").rangepicker({
         id: 'testSlider',
         tooltip: 'always'
       });
-      handle1 = $("#testSlider").find(".slider-track > .slider-handle:first");
+      handle1 = $("#testSlider").find(".rangepicker-track > .rangepicker-handle:first");
       var $tooltip = $("#testSlider").children("div.tooltip");
 
       // Check for shown tooltip before focus
@@ -87,11 +87,11 @@ describe("Keyboard Support Tests", function() {
   });
 
 
-  describe("For horizontal sliders where its handle has focus", function() {
+  describe("For horizontal rangepickers where its handle has focus", function() {
 
     beforeEach(function() {
-      // Initialize the slider
-      testSlider = $("#testSlider1").slider({
+      // Initialize the rangepicker
+      testSlider = $("#testSlider1").rangepicker({
         id: 'testSlider',
         orientation: 'horizontal',
         min: initialMinVal,
@@ -100,7 +100,7 @@ describe("Keyboard Support Tests", function() {
         value: initialSliderVal
       });
       // Focus on handle1
-      handle1 = $("#testSlider .min-slider-handle");
+      handle1 = $("#testSlider .min-rangepicker-handle");
       handle1.focus();
 
       // Create keyboard event
@@ -110,10 +110,10 @@ describe("Keyboard Support Tests", function() {
 
     it("moves to the left by the 'step' value when the LEFT arrow key is pressed", function() {
       handle1.on("keydown", function() {
-        var sliderValue = $("#testSlider1").slider('getValue');
+        var rangepickerValue = $("#testSlider1").rangepicker('getValue');
         var expectedSliderValue = initialSliderVal - initialStepVal;
         
-        expect(sliderValue).toBe(expectedSliderValue);
+        expect(rangepickerValue).toBe(expectedSliderValue);
       });
 
       keyboardEvent.keyCode = keyboardEvent.which = 37;
@@ -122,10 +122,10 @@ describe("Keyboard Support Tests", function() {
 
     it("moves to the right by the 'step' value when the RIGHT arrow key is pressed", function() {
       handle1.on("keydown", function() {
-        var sliderValue = $("#testSlider1").slider('getValue');
+        var rangepickerValue = $("#testSlider1").rangepicker('getValue');
         var expectedSliderValue = initialSliderVal + initialStepVal;
         
-        expect(sliderValue).toBe(expectedSliderValue);
+        expect(rangepickerValue).toBe(expectedSliderValue);
       });
 
       keyboardEvent.keyCode = keyboardEvent.which = 39;
@@ -134,10 +134,10 @@ describe("Keyboard Support Tests", function() {
 
     it("moves to the left by the 'step' value when the DOWN arrow key is pressed", function() {
       handle1.on("keydown", function() {
-        var sliderValue = testSlider.slider('getValue');
+        var rangepickerValue = testSlider.rangepicker('getValue');
         var expectedSliderValue = initialSliderVal - initialStepVal;
         
-        expect(sliderValue).toBe(expectedSliderValue);
+        expect(rangepickerValue).toBe(expectedSliderValue);
       });
 
       keyboardEvent.keyCode = keyboardEvent.which = 40;
@@ -146,10 +146,10 @@ describe("Keyboard Support Tests", function() {
 
     it("moves to the right by the 'step' value when the UP arrow key is pressed", function() {
       handle1.on("keydown", function() {
-        var sliderValue = testSlider.slider('getValue');
+        var rangepickerValue = testSlider.rangepicker('getValue');
         var expectedSliderValue = initialSliderVal + initialStepVal;
         
-        expect(sliderValue).toBe(expectedSliderValue);
+        expect(rangepickerValue).toBe(expectedSliderValue);
       });
 
       keyboardEvent.keyCode = keyboardEvent.which = 38;
@@ -158,11 +158,11 @@ describe("Keyboard Support Tests", function() {
   });
 
 
-  describe("For vertical sliders where its handle has focus", function() {
+  describe("For vertical rangepickers where its handle has focus", function() {
     
     beforeEach(function() {
-      // Initialize the slider
-      testSlider = $("#testSlider1").slider({
+      // Initialize the rangepicker
+      testSlider = $("#testSlider1").rangepicker({
         id: 'testSlider',
         orientation: 'vertical',
         min: initialMinVal,
@@ -171,16 +171,16 @@ describe("Keyboard Support Tests", function() {
         value: initialSliderVal
       });
       // Focus on handle1
-      handle1 = $("#testSlider").find(".slider-track > .slider-handle:first");
+      handle1 = $("#testSlider").find(".rangepicker-track > .rangepicker-handle:first");
       handle1.focus();
     });
 
     it("moves down by the 'step' value when the LEFT arrow key is pressed", function() {
       handle1.on("keydown", function() {
-        var sliderValue = testSlider.slider('getValue');
+        var rangepickerValue = testSlider.rangepicker('getValue');
         var expectedSliderValue = initialSliderVal - initialStepVal;
         
-        expect(sliderValue).toBe(expectedSliderValue);
+        expect(rangepickerValue).toBe(expectedSliderValue);
       });
 
       keyboardEvent.keyCode = keyboardEvent.which = 37;
@@ -189,10 +189,10 @@ describe("Keyboard Support Tests", function() {
 
     it("moves up by the 'step' value when the RIGHT arrow key is pressed", function() {
       handle1.on("keydown", function() {
-        var sliderValue = testSlider.slider('getValue');
+        var rangepickerValue = testSlider.rangepicker('getValue');
         var expectedSliderValue = initialSliderVal + initialStepVal;
         
-        expect(sliderValue).toBe(expectedSliderValue);
+        expect(rangepickerValue).toBe(expectedSliderValue);
       });
 
       keyboardEvent.keyCode = keyboardEvent.which = 39;
@@ -201,10 +201,10 @@ describe("Keyboard Support Tests", function() {
 
     it("moves down by the 'step' value when the DOWN arrow key is pressed", function() {
       handle1.on("keydown", function() {
-        var sliderValue = testSlider.slider('getValue');
+        var rangepickerValue = testSlider.rangepicker('getValue');
         var expectedSliderValue = initialSliderVal - initialStepVal;
         
-        expect(sliderValue).toBe(expectedSliderValue);
+        expect(rangepickerValue).toBe(expectedSliderValue);
       });
 
       keyboardEvent.keyCode = keyboardEvent.which = 40;
@@ -213,10 +213,10 @@ describe("Keyboard Support Tests", function() {
 
     it("moves up by the 'step' value when the UP arrow key is pressed", function() {
       handle1.on("keydown", function() {
-        var sliderValue = testSlider.slider('getValue');
+        var rangepickerValue = testSlider.rangepicker('getValue');
         var expectedSliderValue = initialSliderVal + initialStepVal;
         
-        expect(sliderValue).toBe(expectedSliderValue);
+        expect(rangepickerValue).toBe(expectedSliderValue);
       });
 
       keyboardEvent.keyCode = keyboardEvent.which = 38;
@@ -225,11 +225,11 @@ describe("Keyboard Support Tests", function() {
   });
 
 
-  describe("For a reversed slider (regardless of 'orientation')", function() {
+  describe("For a reversed rangepicker (regardless of 'orientation')", function() {
       
     beforeEach(function() {
-      // Initialize the slider
-      testSlider = $("#testSlider1").slider({
+      // Initialize the rangepicker
+      testSlider = $("#testSlider1").rangepicker({
         id: 'testSlider',
         reversed: true,
         min: initialMinVal,
@@ -238,16 +238,16 @@ describe("Keyboard Support Tests", function() {
         value: initialSliderVal
       });
       // Focus on handle1
-      handle1 = $("#testSlider").find(".slider-track > .slider-handle:first");
+      handle1 = $("#testSlider").find(".rangepicker-track > .rangepicker-handle:first");
       handle1.focus();
     });
 
     it("moves to the left by the 'step' value when the LEFT arrow key is pressed", function() {
       handle1.on("keydown", function() {
-        var sliderValue = testSlider.slider('getValue');
+        var rangepickerValue = testSlider.rangepicker('getValue');
         var expectedSliderValue = initialSliderVal - initialStepVal;
         
-        expect(sliderValue).toBe(expectedSliderValue);
+        expect(rangepickerValue).toBe(expectedSliderValue);
       });
 
       keyboardEvent.keyCode = keyboardEvent.which = 37;
@@ -256,10 +256,10 @@ describe("Keyboard Support Tests", function() {
 
     it("moves to the right by the 'step' value when the RIGHT arrow key is pressed", function() {
       handle1.on("keydown", function() {
-        var sliderValue = testSlider.slider('getValue');
+        var rangepickerValue = testSlider.rangepicker('getValue');
         var expectedSliderValue = initialSliderVal + initialStepVal;
         
-        expect(sliderValue).toBe(expectedSliderValue);
+        expect(rangepickerValue).toBe(expectedSliderValue);
       });
 
       keyboardEvent.keyCode = keyboardEvent.which = 39;
@@ -268,10 +268,10 @@ describe("Keyboard Support Tests", function() {
 
     it("moves to the left by the 'step' value when the DOWN arrow key is pressed", function() {
       handle1.on("keydown", function() {
-        var sliderValue = testSlider.slider('getValue');
+        var rangepickerValue = testSlider.rangepicker('getValue');
         var expectedSliderValue = initialSliderVal - initialStepVal;
         
-        expect(sliderValue).toBe(expectedSliderValue);
+        expect(rangepickerValue).toBe(expectedSliderValue);
       });
 
       keyboardEvent.keyCode = keyboardEvent.which = 40;
@@ -280,10 +280,10 @@ describe("Keyboard Support Tests", function() {
 
     it("moves to the right by the 'step' value when the UP arrow key is pressed", function() {
       handle1.on("keydown", function() {
-        var sliderValue = testSlider.slider('getValue');
+        var rangepickerValue = testSlider.rangepicker('getValue');
         var expectedSliderValue = initialSliderVal + initialStepVal;
         
-        expect(sliderValue).toBe(expectedSliderValue);
+        expect(rangepickerValue).toBe(expectedSliderValue);
       });
 
       keyboardEvent.keyCode = keyboardEvent.which = 38;
@@ -292,11 +292,11 @@ describe("Keyboard Support Tests", function() {
   });
 
 
-  describe("For a range slider (regardless of 'orientation')", function() {
+  describe("For a range rangepicker (regardless of 'orientation')", function() {
     
     beforeEach(function() {
-      // Initialize the slider
-      testSlider = $("#testSlider1").slider({
+      // Initialize the rangepicker
+      testSlider = $("#testSlider1").rangepicker({
         id: 'testSlider',
         min: initialMinVal,
         max: initialMaxVal,
@@ -307,16 +307,16 @@ describe("Keyboard Support Tests", function() {
 
     describe("when handle1 tries to overtake handle2 from the left", function() {
       beforeEach(function() {
-        handle1 = $("#testSlider").find(".slider-track > .slider-handle:first");
+        handle1 = $("#testSlider").find(".rangepicker-track > .rangepicker-handle:first");
         handle1.focus();
       });
 
       it("handle2 moves to the right by the step value", function() {
         handle1.on("keydown", function() {
-          var sliderValue = testSlider.slider('getValue');
+          var rangepickerValue = testSlider.rangepicker('getValue');
           var expectedSliderValue = initialSliderVal + initialStepVal;
           
-          expect(sliderValue[1]).toBe(expectedSliderValue);
+          expect(rangepickerValue[1]).toBe(expectedSliderValue);
         });
 
         keyboardEvent.keyCode = keyboardEvent.which = 39;
@@ -324,10 +324,10 @@ describe("Keyboard Support Tests", function() {
       });
 
       it("handle1's value remains unchanged", function() {
-        var sliderValue = testSlider.slider('getValue');
+        var rangepickerValue = testSlider.rangepicker('getValue');
 
         handle1.on("keydown", function() {
-          expect(sliderValue[0]).toBe(initialSliderVal);
+          expect(rangepickerValue[0]).toBe(initialSliderVal);
         });
 
         keyboardEvent.keyCode = keyboardEvent.which = 39;
@@ -337,16 +337,16 @@ describe("Keyboard Support Tests", function() {
 
     describe("when handle2 tries to overtake handle1 from the right", function() {
       beforeEach(function() {
-        handle2 = $("#testSlider").find(".slider-track > .slider-handle:eq( 1 )");
+        handle2 = $("#testSlider").find(".rangepicker-track > .rangepicker-handle:eq( 1 )");
         handle2.focus();
       });
 
       it("handle1 moves to the left by the step value", function() {
         handle2.on("keydown", function() {
-          var sliderValue = testSlider.slider('getValue');
+          var rangepickerValue = testSlider.rangepicker('getValue');
           var expectedSliderValue = initialSliderVal - initialStepVal;
           
-          expect(sliderValue[0]).toBe(expectedSliderValue);
+          expect(rangepickerValue[0]).toBe(expectedSliderValue);
         });
 
         keyboardEvent.keyCode = keyboardEvent.which = 37;
@@ -354,10 +354,10 @@ describe("Keyboard Support Tests", function() {
       });
 
       it("handle2's value remains unchanged", function() {
-        var sliderValue = testSlider.slider('getValue');
+        var rangepickerValue = testSlider.rangepicker('getValue');
 
         handle2.on("keydown", function() {
-          expect(sliderValue[1]).toBe(initialSliderVal);
+          expect(rangepickerValue[1]).toBe(initialSliderVal);
         });
 
         keyboardEvent.keyCode = keyboardEvent.which = 37;
@@ -417,10 +417,10 @@ describe("Keyboard Support Tests", function() {
       key: 'down'
     }];
     testCases.forEach(function(testCase) {
-      describe("A"+((testCase.reversed)? " reversed" : "")+testCase.orientation+" slider is used for the arrow keys", function() {
+      describe("A"+((testCase.reversed)? " reversed" : "")+testCase.orientation+" rangepicker is used for the arrow keys", function() {
         beforeEach(function() {
-          // Initialize the slider
-          testSlider = $("#testSlider1").slider({
+          // Initialize the rangepicker
+          testSlider = $("#testSlider1").rangepicker({
             id: 'testSlider',
             min: initialMinVal,
             max: initialMaxVal,
@@ -430,16 +430,16 @@ describe("Keyboard Support Tests", function() {
             reversed: testCase.reversed,
             orientation: testCase.orientation
           });
-          handle1 = $("#testSlider").find(".slider-track > .slider-handle:first");
+          handle1 = $("#testSlider").find(".rangepicker-track > .rangepicker-handle:first");
           handle1.focus();
         });
 
         it("moves to the "+testCase.key+" by the 'step' value when the "+testCase.key+" arrow key is pressed", function() {
           handle1.on("keydown", function() {
-            var sliderValue = testSlider.slider('getValue');
+            var rangepickerValue = testSlider.rangepicker('getValue');
             var expectedSliderValue = testCase.expectedSliderValue;
 
-            expect(sliderValue).toBe(expectedSliderValue);
+            expect(rangepickerValue).toBe(expectedSliderValue);
           });
 
           
@@ -450,6 +450,6 @@ describe("Keyboard Support Tests", function() {
     });
   });
   afterEach(function() {
-    if(testSlider) { testSlider.slider('destroy'); }
+    if(testSlider) { testSlider.rangepicker('destroy'); }
   });
 });

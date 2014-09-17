@@ -2,7 +2,7 @@ describe("Event Tests", function() {
   var testSlider, flag;
 
   beforeEach(function() {
-    testSlider = $("#testSlider2").slider();
+    testSlider = $("#testSlider2").rangepicker();
     flag = false;
   });
 
@@ -17,7 +17,7 @@ describe("Event Tests", function() {
       testSlider.on('slideStart', function() {
         flag = true;
       });
-      testSlider.data('slider')._mousedown(mouse);
+      testSlider.data('rangepicker')._mousedown(mouse);
       expect(flag).toBeTruthy();
     });
 
@@ -25,7 +25,7 @@ describe("Event Tests", function() {
       testSlider.on('slide', function() {
         flag = true;
       });
-      testSlider.data('slider')._mousemove(mouse);
+      testSlider.data('rangepicker')._mousemove(mouse);
       expect(flag).toBeTruthy();
     });
 
@@ -34,7 +34,7 @@ describe("Event Tests", function() {
         flag = true;
         expect(isNaN(testSlider.val())).not.toBeTruthy();
       });
-      testSlider.data('slider')._mousemove(mouse);
+      testSlider.data('rangepicker')._mousemove(mouse);
       expect(flag).toBeTruthy();
     });
 
@@ -42,30 +42,30 @@ describe("Event Tests", function() {
       testSlider.on('slideStop', function() {
         flag = true;
       });
-      testSlider.data('slider')._mouseup();
+      testSlider.data('rangepicker')._mouseup();
       expect(flag).toBeTruthy();
     });
 
-    it("slider should not have duplicate events after calling 'refresh'", function() {
+    it("rangepicker should not have duplicate events after calling 'refresh'", function() {
       flag = 0;
       testSlider.on('slideStop', function() {
         flag += 1;
       });
-      testSlider.slider('refresh');
-      testSlider.data('slider')._mouseup();
+      testSlider.rangepicker('refresh');
+      testSlider.data('rangepicker')._mouseup();
       expect(flag).toEqual(1);
     });
 
     describe("Disabled Slider Event Tests", function() {
       beforeEach(function() {
-        testSlider.slider('disable');
+        testSlider.rangepicker('disable');
       });
 
       it("should not trigger 'slideStart' event when disabled", function() {
         testSlider.on('slideStart', function() {
           flag = true;
         });
-        testSlider.data('slider')._mousedown(mouse);
+        testSlider.data('rangepicker')._mousedown(mouse);
         expect(flag).not.toBeTruthy();
       });
 
@@ -73,7 +73,7 @@ describe("Event Tests", function() {
         testSlider.on('slide', function() {
           flag = true;
         });
-        testSlider.data('slider')._mousemove(mouse);
+        testSlider.data('rangepicker')._mousemove(mouse);
         expect(flag).not.toBeTruthy();
       });
 
@@ -81,7 +81,7 @@ describe("Event Tests", function() {
         testSlider.on('slideStop', function() {
           flag = true;
         });
-        testSlider.data('slider')._mouseup();
+        testSlider.data('rangepicker')._mouseup();
         expect(flag).not.toBeTruthy();
       });
     });
@@ -108,7 +108,7 @@ describe("Event Tests", function() {
       testSlider.on('slideStart', function() {
         flag = true;
       });
-      testSlider.data('slider')._mousedown(touch);
+      testSlider.data('rangepicker')._mousedown(touch);
 
       expect(flag).toBeTruthy();
     });
@@ -119,7 +119,7 @@ describe("Event Tests", function() {
       testSlider.on('slide', function() {
         flag = true;
       });
-      testSlider.data('slider')._mousemove(touch);
+      testSlider.data('rangepicker')._mousemove(touch);
       
       expect(flag).toBeTruthy();
     });
@@ -131,7 +131,7 @@ describe("Event Tests", function() {
         flag = true;
         expect(isNaN(testSlider.val())).not.toBeTruthy();
       });
-      testSlider.data('slider')._mousemove(touch);
+      testSlider.data('rangepicker')._mousemove(touch);
       
       expect(flag).toBeTruthy();
     });
@@ -142,27 +142,27 @@ describe("Event Tests", function() {
       testSlider.on('slideStop', function() {
         flag = true;
       });
-      testSlider.data('slider')._mouseup();
+      testSlider.data('rangepicker')._mouseup();
       
       expect(flag).toBeTruthy();
     });
 
-    it("slider should not have duplicate events after calling 'refresh'", function() {
+    it("rangepicker should not have duplicate events after calling 'refresh'", function() {
       touch.initEvent("touchstop");
       flag = 0;
 
       testSlider.on('slideStop', function() {
         flag += 1;
       });
-      testSlider.slider('refresh');
-      testSlider.data('slider')._mouseup();
+      testSlider.rangepicker('refresh');
+      testSlider.data('rangepicker')._mouseup();
 
       expect(flag).toEqual(1);
     });
 
     describe("Disabled Slider Event Tests", function() {
       beforeEach(function() {
-        testSlider.slider('disable');
+        testSlider.rangepicker('disable');
       });
 
       it("should not trigger 'slideStart' event when disabled", function() {
@@ -171,7 +171,7 @@ describe("Event Tests", function() {
         testSlider.on('slideStart', function() {
           flag = true;
         });
-        testSlider.data('slider')._mousedown(touch);
+        testSlider.data('rangepicker')._mousedown(touch);
 
         expect(flag).not.toBeTruthy();
       });
@@ -182,7 +182,7 @@ describe("Event Tests", function() {
         testSlider.on('slide', function() {
           flag = true;
         });
-        testSlider.data('slider')._mousemove(touch);
+        testSlider.data('rangepicker')._mousemove(touch);
 
         expect(flag).not.toBeTruthy();
       });
@@ -193,7 +193,7 @@ describe("Event Tests", function() {
         testSlider.on('slideStop', function() {
           flag = true;
         });
-        testSlider.data('slider')._mouseup();
+        testSlider.data('rangepicker')._mouseup();
         
         expect(flag).not.toBeTruthy();
       });
@@ -207,7 +207,7 @@ describe("Event Tests", function() {
       testSlider.on('slideDisabled', function() {
         flag = true;
       });
-      testSlider.slider('disable');
+      testSlider.rangepicker('disable');
       expect(flag).toBeTruthy();
     });
 
@@ -215,15 +215,15 @@ describe("Event Tests", function() {
       testSlider.on('slideEnabled', function() {
         flag = true;
       });
-      testSlider.slider('disable');
-      testSlider.slider('enable');
+      testSlider.rangepicker('disable');
+      testSlider.rangepicker('enable');
       expect(flag).toBeTruthy();
     });
   });
 
   afterEach(function() {
     if(testSlider) {
-      testSlider.slider('destroy');
+      testSlider.rangepicker('destroy');
       testSlider = null;
     }
   });

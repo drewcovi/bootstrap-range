@@ -1,9 +1,9 @@
 {
-    "name": "seiyria/bootstrap-slider",
+    "name": "seiyria/bootstrap-rangepicker",
     "type": "library",
-    "description": "A less buggy fork of the original bootstrap slider found on http://www.eyecon.ro/ by Stefan Petre. It was forked so we could update the slider since the original wasn't under version control.",
-    "keywords": ["slider", "css", "bootstrap", "javascript"],
-    "homepage": "https://github.com/seiyria/bootstrap-slider",
+    "description": "A less buggy fork of the original bootstrap rangepicker found on http://www.eyecon.ro/ by Stefan Petre. It was forked so we could update the rangepicker since the original wasn't under version control.",
+    "keywords": ["rangepicker", "css", "bootstrap", "javascript"],
+    "homepage": "https://github.com/seiyria/bootstrap-rangepicker",
     "require": {},
     "license": "Apache 2.0",
     "authors": [

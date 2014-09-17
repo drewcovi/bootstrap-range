@@ -2,7 +2,7 @@
                       VERSION  4.0.2              
 ========================================================= */
 /*! =========================================================
- * bootstrap-slider.js
+ * bootstrap-rangepicker.js
  *
  * Maintainers: 
  *		Kyle Kemp 
@@ -26,74 +26,74 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  * ========================================================= */
-.slider {
+.rangepicker {
   display: inline-block;
   vertical-align: middle;
   position: relative;
 }
-.slider.slider-horizontal {
+.rangepicker.rangepicker-horizontal {
   width: 210px;
   height: 20px;
 }
-.slider.slider-horizontal .slider-track {
+.rangepicker.rangepicker-horizontal .rangepicker-track {
   height: 10px;
   width: 100%;
   margin-top: -5px;
   top: 50%;
   left: 0;
 }
-.slider.slider-horizontal .slider-selection {
+.rangepicker.rangepicker-horizontal .rangepicker-selection {
   height: 100%;
   top: 0;
   bottom: 0;
 }
-.slider.slider-horizontal .slider-handle {
+.rangepicker.rangepicker-horizontal .rangepicker-handle {
   margin-left: -10px;
   margin-top: -5px;
 }
-.slider.slider-horizontal .slider-handle.triangle {
+.rangepicker.rangepicker-horizontal .rangepicker-handle.triangle {
   border-width: 0 10px 10px 10px;
   width: 0;
   height: 0;
   border-bottom-color: #0480be;
   margin-top: 0;
 }
-.slider.slider-vertical {
+.rangepicker.rangepicker-vertical {
   height: 210px;
   width: 20px;
 }
-.slider.slider-vertical .slider-track {
+.rangepicker.rangepicker-vertical .rangepicker-track {
   width: 10px;
   height: 100%;
   margin-left: -5px;
   left: 50%;
   top: 0;
 }
-.slider.slider-vertical .slider-selection {
+.rangepicker.rangepicker-vertical .rangepicker-selection {
   width: 100%;
   left: 0;
   top: 0;
   bottom: 0;
 }
-.slider.slider-vertical .slider-handle {
+.rangepicker.rangepicker-vertical .rangepicker-handle {
   margin-left: -5px;
   margin-top: -10px;
 }
-.slider.slider-vertical .slider-handle.triangle {
+.rangepicker.rangepicker-vertical .rangepicker-handle.triangle {
   border-width: 10px 0 10px 10px;
   width: 1px;
   height: 1px;
   border-left-color: #0480be;
   margin-left: 0;
 }
-.slider.slider-disabled .slider-handle {
+.rangepicker.rangepicker-disabled .rangepicker-handle {
   background-image: -webkit-linear-gradient(top, #dfdfdf 0%, #bebebe 100%);
   background-image: -o-linear-gradient(top, #dfdfdf 0%, #bebebe 100%);
   background-image: linear-gradient(to bottom, #dfdfdf 0%, #bebebe 100%);
   background-repeat: repeat-x;
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffdfdfdf', endColorstr='#ffbebebe', GradientType=0);
 }
-.slider.slider-disabled .slider-track {
+.rangepicker.rangepicker-disabled .rangepicker-track {
   background-image: -webkit-linear-gradient(top, #e5e5e5 0%, #e9e9e9 100%);
   background-image: -o-linear-gradient(top, #e5e5e5 0%, #e9e9e9 100%);
   background-image: linear-gradient(to bottom, #e5e5e5 0%, #e9e9e9 100%);
@@ -101,19 +101,19 @@
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffe5e5e5', endColorstr='#ffe9e9e9', GradientType=0);
   cursor: not-allowed;
 }
-.slider input {
+.rangepicker input {
   display: none;
 }
-.slider .tooltip.top {
+.rangepicker .tooltip.top {
   margin-top: -36px;
 }
-.slider .tooltip-inner {
+.rangepicker .tooltip-inner {
   white-space: nowrap;
 }
-.slider .hide {
+.rangepicker .hide {
   display: none;
 }
-.slider-track {
+.rangepicker-track {
   position: absolute;
   cursor: pointer;
   background-image: -webkit-linear-gradient(top, #f5f5f5 0%, #f9f9f9 100%);
@@ -125,7 +125,7 @@
   box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
   border-radius: 4px;
 }
-.slider-selection {
+.rangepicker-selection {
   position: absolute;
   background-image: -webkit-linear-gradient(top, #f9f9f9 0%, #f5f5f5 100%);
   background-image: -o-linear-gradient(top, #f9f9f9 0%, #f5f5f5 100%);
@@ -139,7 +139,7 @@
   box-sizing: border-box;
   border-radius: 4px;
 }
-.slider-handle {
+.rangepicker-handle {
   position: absolute;
   width: 20px;
   height: 20px;
@@ -155,16 +155,16 @@
   opacity: 0.8;
   border: 0px solid transparent;
 }
-.slider-handle.round {
+.rangepicker-handle.round {
   border-radius: 50%;
 }
-.slider-handle.triangle {
+.rangepicker-handle.triangle {
   background: transparent none;
 }
-.slider-handle.custom {
+.rangepicker-handle.custom {
   background: transparent none;
 }
-.slider-handle.custom::before {
+.rangepicker-handle.custom::before {
   line-height: 20px;
   font-size: 20px;
   content: '\2605';

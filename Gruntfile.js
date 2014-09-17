@@ -96,7 +96,7 @@ module.exports = function(grunt) {
       options : {
         specs : '<%= pkg.gruntConfig.spec %>',
         vendor : ['<%= pkg.gruntConfig.js.jquery %>', '<%= pkg.gruntConfig.js.bindPolyfill %>'],
-        styles : ['<%= pkg.gruntConfig.css.bootstrap %>', '<%= pkg.gruntConfig.css.slider %>'],
+        styles : ['<%= pkg.gruntConfig.css.bootstrap %>', '<%= pkg.gruntConfig.css.rangepicker %>'],
         template : '<%= pkg.gruntConfig.tpl.SpecRunner %>'
       }
     },
@@ -107,11 +107,11 @@ module.exports = function(grunt) {
             js : {
               modernizr : '<%= pkg.gruntConfig.js.modernizr %>',
               jquery : '<%= pkg.gruntConfig.js.jquery %>',
-              slider : '<%= pkg.main %>'
+              rangepicker : '<%= pkg.main %>'
             },
             css : {
               bootstrap : '<%= pkg.gruntConfig.css.bootstrap %>',
-              slider : '<%= pkg.gruntConfig.css.slider %>'
+              rangepicker : '<%= pkg.gruntConfig.css.rangepicker %>'
             }
           }
         },
@@ -137,7 +137,7 @@ module.exports = function(grunt) {
         tasks: ['jshint:spec', 'jasmine:src']
       },
       css : {
-        files: '<%= pkg.gruntConfig.less.slider %>',
+        files: '<%= pkg.gruntConfig.less.rangepicker %>',
         tasks: ['less:development']
       },
       index : {
@@ -163,12 +163,12 @@ module.exports = function(grunt) {
       },
       development: {
         files: {
-          '<%= pkg.gruntConfig.css.slider %>': '<%= pkg.gruntConfig.less.slider %>'
+          '<%= pkg.gruntConfig.css.rangepicker %>': '<%= pkg.gruntConfig.less.rangepicker %>'
         }
       },
       production: {
         files: {
-         '<%= pkg.gruntConfig.temp.css %>': '<%= pkg.gruntConfig.less.slider %>',
+         '<%= pkg.gruntConfig.temp.css %>': '<%= pkg.gruntConfig.less.rangepicker %>',
         }
       },
       "production-min": {
@@ -176,7 +176,7 @@ module.exports = function(grunt) {
           yuicompress: true
         },
         files: {
-         '<%= pkg.gruntConfig.temp.cssMin %>': '<%= pkg.gruntConfig.less.slider %>'
+         '<%= pkg.gruntConfig.temp.cssMin %>': '<%= pkg.gruntConfig.less.rangepicker %>'
         }
       }
     },

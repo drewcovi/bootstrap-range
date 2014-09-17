@@ -1,5 +1,5 @@
 {
-  "name": "seiyria-bootstrap-slider",
+  "name": "seiyria-bootstrap-rangepicker",
   "version": "3.1.0",
   "dependencies": {
     "jquery": "",
@@ -7,16 +7,16 @@
     "modernizr": "",
     "jquery-bridget": ""
   },
-  "homepage": "https://github.com/seiyria/bootstrap-slider",
+  "homepage": "https://github.com/seiyria/bootstrap-rangepicker",
   "authors": [
     "Kyle Kemp <kyle@seiyria.com>",
     "Rohit Kalkur <rohit.kalkur@gmail.com>"
   ],
-  "description": "a slider element for bootstrap 2/3",
-  "main": ["js/bootstrap-slider.js"
-          ,"dist/css/bootstrap-slider.css"],
+  "description": "a rangepicker element for bootstrap 2/3",
+  "main": ["js/bootstrap-rangepicker.js"
+          ,"dist/css/bootstrap-rangepicker.css"],
   "keywords": [
-    "slider",
+    "rangepicker",
     "bootstrap2",
     "bootstrap3",
     "bootstrap"
