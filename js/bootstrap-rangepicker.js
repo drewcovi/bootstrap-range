@@ -1003,7 +1003,7 @@
         }
         this.over = false;
       },
-      _layout: function() {     
+      _layout: function() {
         var percentage = this.percentage;
         var left, right, leftPercent, rightPercent;
         var i, handle, dim, selection, prev;
@@ -1103,8 +1103,12 @@
 
 
         var percentage = this._getPercentage(ev);
+
         this.downElement = ev.target;
         this.downPercentage = percentage;
+
+
+        this._adjustPercentageForRangeSliders(this.downElement, percentage);
 
         for(i=0; i<this.selections.length; i++){
           if(ev.target === this.selections[i]){
@@ -1119,7 +1123,7 @@
           }
         }
 
-        this._layout();
+        // this._layout();
 
         this.mousemove = this._mousemove.bind(this);
         this.mouseup = this._mouseup.bind(this);
@@ -1231,7 +1235,7 @@
         this._adjustPercentageForRangeSliders(this.downElement, percentage);
 
         var val = this._calculateValue();
-        this._layout();
+        // this._layout();
 
         this.setValue(val, true);
 
