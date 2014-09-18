@@ -181,6 +181,19 @@ background: #BABABA;
 								<div class="form-group">
 									<input
 									type="range"
+									class="async-rangepicker no-limits"
+									data-value="[6,12,17,24]"
+									max="24"
+									min=".25"
+									data-limit="false"
+									data-precision="2"
+									data-range="true"
+									data-formatter="return arguments[0]+'hrs';"
+									/>
+								</div>
+								<div class="form-group">
+									<input
+									type="range"
 									class="rangepicker"
 									data-value="[6,8,17,20]"
 									max="24"
@@ -557,6 +570,11 @@ max: 200000
 					var RGBChange = function() {
 					$('#RGB').css('background', 'rgb('+r.getValue()+','+g.getValue()+','+b.getValue()+')')
 					};
+					$('.async-rangepicker')
+						.rangepicker()
+						.on('slide', function(){
+							console.log('foo');
+						})
 					var r = $('#R').rangepicker()
 						.on('slide', RGBChange)
 						.data('rangepicker');
