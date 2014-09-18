@@ -976,11 +976,13 @@
         });
         if(i){
           this._addClass( this.tooltips[i-1], 'in');
-          if(handle && this.tooltips[i] && this.options.range && this.options.limit){
-            // hovering over a handle while range is selected, show next range
+
+          // hovering over a handle with range and split enabled: show next range
+          if(handle && this.tooltips[i] && this.options.range && this.options.tooltip_split){
             this._removeClass( this.tooltips[i], 'top');
             this._addClass( this.tooltips[i], 'in bottom');
           }
+
         }else{
           for(i=0; i<this.tooltips.length; i++){
             this._addClass( this.tooltips[i], 'in');
