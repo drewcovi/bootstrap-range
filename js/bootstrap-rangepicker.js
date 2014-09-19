@@ -1524,6 +1524,7 @@
           groups.push(new RangePicker(element, groupOptions));
         });
         
+        RangeGroups = {}; // All groups added, clear out temporary storage
         return groups;
       }
     };
