@@ -80,16 +80,16 @@
 				.well {
 					background-color: #E0E0E0;
 				}
-				#destroyEx5Slider, #ex6CurrentSliderValLabel, #ex7-enabled {
+				#destroyEx5RangePicker, #ex6CurrentRangePickerValLabel, #ex7-enabled {
 					margin-left: 45px;
 				}
-				#ex6SliderVal {
+				#ex6RangePickerVal {
 					color: green;
 				}
 		</style>
 		<style type='text/css'>
 				/* Example 1 custom styles */
-				#ex1Slider .rangepicker-selection {
+				#ex1RangePicker .rangepicker-selection {
 					background: #BABABA;
 				}
 			/* Example 3 custom styles */
@@ -137,18 +137,18 @@
 					<h3>Example 1:</h3>
 					<p>Basic example with custom formatter and colored selected region via CSS.</p>
 					<div class="well">
-						<input id="ex1" data-id='ex1Slider' type="range" data-min="-5" data-max="20" data-step="1" data-value="14"/>
+						<input id="ex1" data-id='ex1RangePicker' type="range" data-min="-5" data-max="20" data-step="1" data-value="14"/>
 					</div>
 <pre><code>
 ###################
        HTML
 ###################
-&ltinput id="ex1" data-id='ex1Slider' type="range" data-min="0" data-max="20" data-step="1" data-value="14"/&gt
+&ltinput id="ex1" data-id='ex1RangePicker' type="range" data-min="0" data-max="20" data-step="1" data-value="14"/&gt
 
 ###################
        CSS
 ###################
-#ex1Slider .rangepicker-selection {
+#ex1RangePicker .rangepicker-selection {
 background: #BABABA;
 }
 </code></pre>
@@ -221,7 +221,7 @@ background: #BABABA;
 									<fieldset class="form-group" id="range-group">
 										<input
 										type="range"
-										class="col-sm-2 rangepicker"
+										class="col-sm-2 rangepicker-test"
 										min=".25"
 										max="24"
 										step=".25"
@@ -233,7 +233,7 @@ background: #BABABA;
 										/>
 										<input
 										type="range"
-										class="col-sm-2 rangepicker"
+										class="col-sm-2 rangepicker-test"
 										min=".25"
 										max="24"
 										step=".25"
@@ -242,7 +242,7 @@ background: #BABABA;
 										/>
 										<input
 										type="range"
-										class="col-sm-2 rangepicker"
+										class="col-sm-2 rangepicker-test"
 										min=".25"
 										max="24"
 										step=".25"
@@ -251,7 +251,7 @@ background: #BABABA;
 										/>
 										<input
 										type="range"
-										class="col-sm-2 rangepicker"
+										class="col-sm-2 rangepicker-test"
 										min=".25"
 										max="24"
 										step=".25"
@@ -337,7 +337,7 @@ width: 300px;
 				</div>
 				<div class='rangepicker-example'>
 <h3>Example 4:</h3>
-<p>Vertical Slider with reversed values (largest to smallest).</p>
+<p>Vertical RangePicker with reversed values (largest to smallest).</p>
 					<div class="well">
 						<input id="ex4" type="range" data-min="-5" data-max="20" data-step="1" data-value="-3" data-orientation="vertical"/>
 					</div>
@@ -353,23 +353,23 @@ width: 300px;
 					<h3>Example 5:</h3>
 					<p>Destroy instance of rangepicker by calling destroy() method on rangepicker instance via JavaScript.
 					<div class="well">
-						<input id="ex5" type="range" min="-5" max="20" step="1" data-value="0"/>
-						<button id="destroyEx5Slider" class='btn btn-danger'>Click to Destroy</button>
+						<input id="ex5" type="range" min="-5" max="20" step="1" data-value="0" data-reversed="true" data-id="test"/>
+						<button id="destroyEx5RangePicker" class='btn btn-danger'>Click to Destroy</button>
 					</div>
       <pre><code>
 ###################
        HTML
 ###################
 &ltinput id="ex5" type="range" data-min="-5" data-max="20" data-step="1" data-value="0"/&gt
-&ltbutton id="destroyEx5Slider" class='btn btn-danger'>Click to Destroy&lt/button&gt
+&ltbutton id="destroyEx5RangePicker" class='btn btn-danger'>Click to Destroy&lt/button&gt
 ###################
     JavaScript
 ###################
 // With JQuery
 $("#ex5").rangepicker();
 // Without JQuery
-var rangepicker = new Slider('#ex5');
-$("#destroyEx5Slider").click(function() {
+var rangepicker = new RangePicker('#ex5');
+$("#destroyEx5RangePicker").click(function() {
 
 // With JQuery
 $("#ex5").rangepicker('destroy');
@@ -383,32 +383,32 @@ rangepicker.destroy();
 					<p>Able to bind to 'slide' JQuery event on rangepicker, which is triggered whenever the rangepicker is used.</p>
 					<div class="well">
 						<input id="ex6" type="range" data-min="-5" data-max="20" data-step="1" data-value="3"/>
-						<span id="ex6CurrentSliderValLabel">Current Slider Value: <span id="ex6SliderVal">3</span></span>
+						<span id="ex6CurrentRangePickerValLabel">Current RangePicker Value: <span id="ex6RangePickerVal">3</span></span>
 					</div>
       <pre><code>
 ###################
        HTML
 ###################
 &ltinput id="ex6" type="range" data-min="-5" data-max="20" data-step="1" data-value="3"/&t
-&ltspan id="ex6CurrentSliderValLabel">Current Slider Value: &ltspan id="ex6SliderVal"&gt3&lt/span&gt&lt/span&gt
+&ltspan id="ex6CurrentRangePickerValLabel">Current RangePicker Value: &ltspan id="ex6RangePickerVal"&gt3&lt/span&gt&lt/span&gt
 ###################
     JavaScript
 ###################
 // With JQuery
 $("#ex6").rangepicker();
 $("#ex6").on("slide", function(slideEvt) {
-$("#ex6SliderVal").text(slideEvt.value);
+$("#ex6RangePickerVal").text(slideEvt.value);
 });
 // Without JQuery
-var rangepicker = new Slider("#ex6");
+var rangepicker = new RangePicker("#ex6");
 rangepicker.on("slide", function(slideEvt) {
-$("#ex6SliderVal").text(slideEvt.value);
+$("#ex6RangePickerVal").text(slideEvt.value);
 });)
 </code></pre>
 				</div>
 				<div class='rangepicker-example'>
 					<h3>Example 7:</h3>
-					<p>Sliders can be enabled and disabled.</p>
+					<p>RangePickers can be enabled and disabled.</p>
 					<div class="well">
 						<input id="ex7" type="range" data-min="0" data-max="20" data-step="1" data-value="5" data-enabled="false"/>
 						<input id="ex7-enabled" type="checkbox"/> Enabled
@@ -425,7 +425,7 @@ $("#ex6SliderVal").text(slideEvt.value);
 // With JQuery
 $("#ex7").rangepicker();
 // Without JQuery
-var rangepicker = new Slider("#ex7");
+var rangepicker = new RangePicker("#ex7");
 $("#ex7-enabled").click(function() {
 if(this.checked) {
 // With JQuery
@@ -446,13 +446,13 @@ rangepicker.disable();
 					<h3>Example 8:</h3>
 					<p>Tooltip can always be displayed.</p>
 					<div class="well">
-						<input id="ex8" data-id='ex1Slider' type="range" data-min="0" data-max="20" data-step="1" data-value="14"/>
+						<input id="ex8" data-id='ex1RangePicker' type="range" data-min="0" data-max="20" data-step="1" data-value="14"/>
 					</div>
       <pre><code>
 ###################
        HTML
 ###################
-&ltinput id="ex8" data-id='ex1Slider' type="range" data-min="0" data-max="20" data-step="1" data-value="14"/&gt
+&ltinput id="ex8" data-id='ex1RangePicker' type="range" data-min="0" data-max="20" data-step="1" data-value="14"/&gt
 ###################
     JavaScript
 ###################
@@ -461,7 +461,7 @@ $("#ex8").rangepicker({
 tooltip: 'always'
 });
 // Without JQuery
-var rangepicker = new Slider("#ex8", {
+var rangepicker = new RangePicker("#ex8", {
 tooltip: 'always'
 });
 </code></pre>
@@ -483,12 +483,12 @@ tooltip: 'always'
 // With JQuery
 $("#ex9").rangepicker({
 precision: 2,
-value: 8.115 // Slider will instantiate showing 8.12 due to specified precision
+value: 8.115 // RangePicker will instantiate showing 8.12 due to specified precision
 });
 // Without JQuery
-var rangepicker = new Slider("#ex9", {
+var rangepicker = new RangePicker("#ex9", {
 precision: 2,
-value: 8.115 // Slider will instantiate showing 8.12 due to specified precision
+value: 8.115 // RangePicker will instantiate showing 8.12 due to specified precision
 });
 </code></pre>
 				</div>
@@ -509,7 +509,7 @@ JavaScript
 // With JQuery
 $("#ex10").rangepicker({});
 // Without JQuery
-var rangepicker = new Slider("#ex10", {});
+var rangepicker = new RangePicker("#ex10", {});
 ###################
  CSS
 ###################
@@ -543,7 +543,7 @@ JavaScript
 // With JQuery
 $("#ex11").rangepicker({step: 20000, min: 0, max: 200000});
 // Without JQuery
-var rangepicker = new Slider("#ex11", {
+var rangepicker = new RangePicker("#ex11", {
 step: 20000,
 min: 0,
 max: 200000
@@ -563,18 +563,20 @@ max: 200000
 						formatter: function(value) {
 						return 'Current value: ' + value;
 						}
-					});
+						});
+						$('#ex1').rangepicker({
+						formatter: function(value) {
+						return 'Current value: ' + value;
+						}
+						});
 						/* Example 2 */
 					// $("#ex20, #ex21, #ex22").rangepicker({});
 					/* Example 3 */
 					var RGBChange = function() {
 					$('#RGB').css('background', 'rgb('+r.getValue()+','+g.getValue()+','+b.getValue()+')')
 					};
-					$('.async-rangepicker')
+					$('.async-rangepicker, .rangepicker-test')
 						.rangepicker()
-						.on('slide', function(){
-							console.log('foo');
-						})
 					var r = $('#R').rangepicker()
 						.on('slide', RGBChange)
 						.data('rangepicker');
@@ -590,13 +592,13 @@ max: 200000
 					});
 					/* Example 5 */
 					$("#ex5").rangepicker();
-							$("#destroyEx5Slider").click(function() {
+							$("#destroyEx5RangePicker").click(function() {
 								$("#ex5").rangepicker('destroy');
 							});
 							/* Example 6 */
 							$("#ex6").rangepicker();
 							$("#ex6").on('slide', function(slideEvt) {
-								$("#ex6SliderVal").text(slideEvt.value);
+								$("#ex6RangePickerVal").text(slideEvt.value);
 							});
 							/* Example 7 */
 							$("#ex7").rangepicker();

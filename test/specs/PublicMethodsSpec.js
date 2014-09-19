@@ -111,8 +111,9 @@ describe("Public Method Tests", function() {
     });
 
     it("reads and sets the 'reversed' option properly", function() {
+      // this has been reversed, since a reversed rangepicker should show the selection from the right side of a horizontal thus, it would still have width at it's max
       var reversedVal = true,
-          maxSliderVal = 10;
+          maxSliderVal = 0;
 
       testSlider = $("#testSlider1").rangepicker({
         reversed : reversedVal
@@ -153,7 +154,7 @@ describe("Public Method Tests", function() {
           tooltip : "hide"
         });
         
-        var tooltipIsHidden = testSlider.siblings(".bootstrap-range").children("div.tooltip").hasClass("hide");
+        var tooltipIsHidden = testSlider.siblings(".bootstrap-range").children("div.tooltip").hasClass("hidden");
         expect(tooltipIsHidden).toBeTruthy();
       });
 

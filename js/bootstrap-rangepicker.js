@@ -130,12 +130,13 @@
                 instance = new PluginClass( this, options );
                 $.data( this, namespace, instance );
               }
-              if(! options || ! options.parent){
+              if(!options || !options.parent){
                 return $(this);
               }
             });
 
             $(new PluginClass()._createSliderGroups()).each(function(){
+              $.data( this.element, namespace, this );
               objects.push($(this));
             });
 
@@ -195,7 +196,7 @@
               CONSTRUCTOR
 
     **************************************************/
-    var Slider = function(element, options) {
+    var RangePicker = function(element, options) {
       if(element){
         createNewSlider.call(this, element, options);
       }
@@ -290,6 +291,7 @@
       var tooltip;
       var rangepicker;
       var keydown;
+      var selectionHidden;
       var handleClass;
       var rangepickerTrack;
 
@@ -358,14 +360,22 @@
           rangepickerTrack.appendChild(handle);
 
         }
+        if(this.options.limit || this.options.value.length === 1){
+          selection = document.createElement("div");
 
-        selection = document.createElement("div");
-        selection.className = 
-          "rangepicker-selection rangepicker-selection-"+this.options.value.length+(!this.options.limit?" hidden":"");
-        selection.style.right = '0%';
-        selection.setAttribute('data-id', i+1);
-        selections.push(selection);
-        rangepickerTrack.appendChild(selection);
+          if(this.options.limit){
+            selectionHidden = ' hidden';
+          }else{
+            selectionHidden = '';
+          }
+          selection.className = 
+            "rangepicker-selection rangepicker-selection-"+this.options.value.length+selectionHidden;
+
+          selection.style.right = '0%';
+          selection.setAttribute('data-id', i+1);
+          selections.push(selection);
+          rangepickerTrack.appendChild(selection);
+        }
 
 
         this.handles = handles;
@@ -435,7 +445,7 @@
         this._removeClass(this.rangepickerElem, 'rangepicker-horizontal');
         this._removeClass(this.rangepickerElem, 'rangepicker-vertical');
         for(i=0; i<this.tooltips.length; i++){
-          this._removeClass(this.tooltips[i], 'hide');
+          this._removeClass(this.tooltips[i], 'hidden');
         }
 
         // Undo existing inline styles for track
@@ -493,14 +503,14 @@
 
       if(this.options.value.length === 1){
         if (this.options.selection === 'after') {
-          this._addClass(this.selections[0], 'hide');
+          this._addClass(this.selections[0], 'hidden');
         }else{
-          this._addClass(this.selections[1], 'hide');
+          this._addClass(this.selections[1], 'hidden');
         }
       }
       if (this.options.selection === 'none') {
         this.selections.forEach(function(selection){
-          this._addClass(selection, 'hide');
+          this._addClass(selection, 'hidden');
         });
       }
 
@@ -560,11 +570,8 @@
       }
       // Bind tooltip-related handlers
       if(this.options.tooltip === 'hide') {
-        // this._addClass(this.tooltip, 'hide');
-        // this._addClass(this.tooltip_min, 'hide');
-        // this._addClass(this.tooltip_max, 'hide');
         for(i=0; i<this.tooltips.length; i++){
-          this._addClass( this.tooltips[i], 'hide');
+          this._addClass( this.tooltips[i], 'hidden');
         }
       } else if(this.options.tooltip === 'always') {
         this._showTooltip();
@@ -624,10 +631,10 @@
     part of the plugin's `public` interface
 
     **************************************************/
-    Slider.prototype = {
+    RangePicker.prototype = {
       _init: function() {}, // NOTE: Must exist to support bridget
 
-      constructor: Slider,
+      constructor: RangePicker,
 
       defaultOptions: {
         id: "",
@@ -681,6 +688,7 @@
         if (!val) {
           val = 0;
         }
+
         this.options.value = this._validateInputValue(val);
 
         var applyPrecision = this._applyPrecision.bind(this);
@@ -940,8 +948,13 @@
           }else{
             prev = this.percentage[i-1];
           }
-          selection.style[dim[0]] = prev + '%';
-          selection.style[dim[1]] = 100-this.percentage[i]+'%';
+          if(this.options.reversed){
+            selection.style[dim[1]] = prev + '%';
+            selection.style[dim[0]] = this.percentage[i]+'%';
+          }else{
+            selection.style[dim[0]] = prev + '%';
+            selection.style[dim[1]] = 100-this.percentage[i]+'%';
+          }
         }
 
         var formattedTooltipVal, formatter;
@@ -1016,17 +1029,20 @@
 
         var percentage = this._getPercentage(ev);
 
+
         this.downElement = ev.target;
         this.downPercentage = percentage;
-
-
-        
 
         for(i=0; i<this.selections.length; i++){
           if(ev.target === this.selections[i]){
             this.downPrev = this.percentage[i-1];
             this.downNext = this.percentage[i];
           }
+        }
+        
+        if(this.options.reversed){
+          this.downPrev = 100 - this.downPrev;
+          this.downNext = 100 - this.downNext;
         }
 
         this._adjustPercentageForRangeSliders(this.downElement, percentage);
@@ -1061,6 +1077,8 @@
         this._setDataVal(val);
 
         this.setValue(val, false);
+
+        this._trigger('slide', (val instanceof Array)?val:val[0]);
 
         this._pauseEvent(ev);
         return true;
@@ -1159,6 +1177,11 @@
       _adjustPercentageForRangeSliders: function(el, percentage) {
         var diff;
 
+        // console.log(el);
+        if(this.options.value.length === 1 && (el === this.rangepickerTrack || el === this.rangepickerElem)){
+          this.percentage[0] = percentage;
+        }
+        // console.log(this.percentage, this.downPercentage);
         for(i=0; i<this.handles.length; i++){
           if(el === this.handles[i]){
             this.percentage[i] = percentage;
@@ -1166,7 +1189,7 @@
         }
         for(i=0; i<this.selections.length; i++){
           if(el === this.selections[i]){        
-            diff = percentage - this.downPercentage;  
+            diff = percentage - this.downPercentage;
             this.percentage[i-1] = this.downPrev + diff;
             this.percentage[i] = this.downNext + diff;
           }
@@ -1276,7 +1299,6 @@
         if(this.options.reversed){
           percentage = 100-percentage;
         }
-
         percentage = Math.round(percentage/this.stepPercentage)*this.stepPercentage;
 
         return Math.max(0, Math.min(100, percentage));
@@ -1431,7 +1453,9 @@
 
           element = document.querySelector(selector);
 
-
+          if ($(element).data('rangepicker')){
+            return; // RangeGroup already created for this element
+          }
           
           $(group).each(function(i, options){
             min = Math.min(min, options.min);
@@ -1497,7 +1521,7 @@
             id: id,
             children: children
           };
-          groups.push(new Slider(element, groupOptions));
+          groups.push(new RangePicker(element, groupOptions));
         });
         
         return groups;
@@ -1512,10 +1536,9 @@
 
     if($) {
       var namespace = $.fn.rangepicker ? 'bootstrapRangepicker' : 'rangepicker';
-      $.bridget(namespace, Slider);
-    } else {
-      window.Slider = Slider;
+      $.bridget(namespace, RangePicker);
     }
+    window.RangePicker = RangePicker;
 
     $(window).on('load.bs.rangepicker.data-api', function () {
       $('.rangepicker').rangepicker();

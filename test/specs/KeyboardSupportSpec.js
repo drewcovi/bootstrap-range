@@ -56,13 +56,13 @@ describe("Keyboard Support Tests", function() {
       handle1 = $("#testSlider").find(".rangepicker-track > .rangepicker-handle:first");
 
       // Check for hidden tooltip before focus
-      var tooltipIsHidden = $("#testSlider").children("div.tooltip").hasClass("hide");
+      var tooltipIsHidden = $("#testSlider").children("div.tooltip").hasClass("hidden");
       expect(tooltipIsHidden).toBeTruthy();
       
       handle1.focus();
 
       // Tooltip should remain hidden after focus
-      tooltipIsHidden = $("#testSlider").children("div.tooltip").hasClass("hide");
+      tooltipIsHidden = $("#testSlider").children("div.tooltip").hasClass("hidden");
       expect(tooltipIsHidden).toBeTruthy();
     });
 

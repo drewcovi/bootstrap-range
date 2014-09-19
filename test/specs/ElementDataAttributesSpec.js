@@ -60,7 +60,7 @@ describe("Element Data Attributes Tests", function() {
     rangepicker = $("#tooltipSlider").rangepicker({
       id: "tooltipSliderElem"
     });
-    var tooltipIsHidden = $("#tooltipSliderElem").children("div.tooltip").hasClass("hide");
+    var tooltipIsHidden = $("#tooltipSliderElem").children("div.tooltip").hasClass("hidden");
     expect(tooltipIsHidden).toBeTruthy();
   });
 
@@ -83,10 +83,11 @@ describe("Element Data Attributes Tests", function() {
   });
 
   it("reads the 'data-reversed' property and sets it on rangepicker", function() {
+    // this has been reversed from the original test, since a reversed rangepicker should show the selection from the right side of a horizontal thus, it would still have width at it's max
     rangepicker = $("#reversedSlider").rangepicker({
       id: "reversedSliderElem"  
     });
-    rangepicker.rangepicker('setValue', 10);
+    rangepicker.rangepicker('setValue', 0);
       
     var rangepickerSelectionHeightAtMaxValue = $("#reversedSliderElem div.rangepicker-track").children("div.rangepicker-selection").width();
     expect(rangepickerSelectionHeightAtMaxValue).toBe(0);
