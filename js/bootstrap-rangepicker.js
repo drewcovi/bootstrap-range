@@ -130,17 +130,26 @@
                 instance = new PluginClass( this, options );
                 $.data( this, namespace, instance );
               }
-              if(!options || !options.parent){
-                return $(this);
-              }
+              // console.log(this);
+              
+              return $(this);
+              
             });
 
-            $(new PluginClass()._createSliderGroups()).each(function(){
-              $.data( this.element, namespace, this );
-              objects.push($(this));
-            });
+            // console.log($(objects));
+            new PluginClass()._createSliderGroups();
+            // $().each(function(){
+            //   $.data( this.element, namespace, this );
+            //   objects.push(this);
+            // });
+            // console.log(objects);
 
             if(!objects || objects.length > 1) {
+              // console.log(this, this.map)
+              objects = this.map( function(){
+                return this;
+              });
+              // console.log(objects);
               return objects;
             } else {
               return objects[0];
@@ -258,13 +267,7 @@
         }
         this.options[optName] = val;
       }
-      // Don't process inputs that have a parent, post process those later
-      if(this.options.parent){
-        RangeGroups[this.options.parent] = RangeGroups[this.options.parent] || [];
-        this.options.element = this.element;
-        RangeGroups[this.options.parent].push(this.options);
-        return false;
-      }
+      
 
       // ensure the limit is a multiple of step
 
@@ -274,6 +277,19 @@
         this.options.limit = parseInt(this.options.limit/this.options.step,10)*this.options.step;
       }
 
+      this.eventToCallbackMap = {};
+
+      if($){
+        this.$element = $(this.element);
+      }
+
+      // Don't process inputs that have a parent, post process those later
+      if(this.options.parent){
+        RangeGroups[this.options.parent] = RangeGroups[this.options.parent] || [];
+        this.options.element = this.element;
+        RangeGroups[this.options.parent].push(this.options);
+        return false;
+      }
       /*************************************************
             
               Create Markup
@@ -417,7 +433,6 @@
 
       /* If JQuery exists, cache JQ references */
       if($) {
-        this.$element = $(this.element);
         this.$rangepickerElem = $(this.rangepickerElem);
       }
 
@@ -426,7 +441,7 @@
                 Setup
 
       **************************************************/
-      this.eventToCallbackMap = {};
+      
       this.rangepickerElem.id = this.options.id;
 
       this.touchCapable = 'ontouchstart' in window || (window.DocumentTouch && document instanceof window.DocumentTouch);
@@ -680,63 +695,76 @@
           this.tooltipInners.push(inner);
       },
       setValue: function(val, triggerSlideEvent) {
+        var context, target;
+        if(this.parent){ // Called on a child element via method
+          target = this;
+          context = this.parent;
+          context.targetChild = this.parent.children[this.index];
+        }else if(this.children){ // Called on a group via mouse event
+          context = this;
+          target = this.targetChild;
+        }else{
+          context = this;
+          target = this;
+        }
+
         var value,
-          min = this.options.min,
-          max = this.options.max,
+          min = context.options.min,
+          max = context.options.max,
           i;
 
         if (!val) {
           val = 0;
         }
 
-        this.options.value = this._validateInputValue(val);
+        context.options.value = context._validateInputValue(val);
 
-        var applyPrecision = this._applyPrecision.bind(this);
+        var applyPrecision = context._applyPrecision.bind(context);
         if (
-            // this.options.children ||
-            // this.options.range ||
-            this.options.value.length > 1
+            // context.children ||
+            // context.options.range ||
+            context.options.value.length > 1
           ) {
-          for(i=0; i<this.options.value.length; i++){
-            value = this.options.value[i];
+          for(i=0; i<context.options.value.length; i++){
+            value = context.options.value[i];
             value = applyPrecision(value);
             value = Math.min(max, value);
             value = Math.max(min, value);
-            this.options.value[i] = value;
+            context.options.value[i] = value;
           }
         } else {
-          value = this.options.value[0];
+          value = context.options.value[0];
           value = applyPrecision(value);
           value = Math.min(max, value);
           value = Math.max(min, value);
-          this.options.value[0] = value;
+          context.options.value[0] = value;
         }
 
-        this.diff = max - min;
-        if (this.diff > 0) {
-          this.percentage = [];
-          for(i=0; i<this.options.value.length; i++){
-            value = this.options.value[i];
-            this.percentage.push((value - min) * 100/this.diff);
+        context.diff = max - min;
+        if (context.diff > 0) {
+          context.percentage = [];
+          for(i=0; i<context.options.value.length; i++){
+            value = context.options.value[i];
+            context.percentage.push((value - min) * 100/context.diff);
           }
-          this.stepPercentage = this.options.step * 100 / this.diff;
-          this.limitPercentage = this.options.limit * 100 / this.diff;
+          context.stepPercentage = context.options.step * 100 / context.diff;
+          context.limitPercentage = context.options.limit * 100 / context.diff;
         } else {
-          this.percentage = [0, 0];
-          this.stepPercentage = 100;
+          context.percentage = [0, 0];
+          context.stepPercentage = 100;
         }
-        // this.percentage.push(100);
+        // context.percentage.push(100);
 
-        this._layout();
+        context._layout();
 
-        var rangepickerValue = this.options.value.length > 1 || this.options.range ? this.options.value : this.options.value[0];
+        var rangepickerValue = context.options.value.length > 1 || context.options.range ? context.options.value : context.options.value[0];
 
-        this._setDataVal(rangepickerValue);
+        target._setDataVal(rangepickerValue);
 
         if(triggerSlideEvent === true) {
-          this._trigger('slide', rangepickerValue);
+          target._trigger('slide', rangepickerValue);
         }
-        return this;
+        return context;
       },
 
       destroy: function(){
@@ -1079,6 +1107,15 @@
         this.setValue(val, false);
 
         this._trigger('slide', (val instanceof Array)?val:val[0]);
+        
+        if(this.targetChild){
+          this.targetChild._trigger('mousedown');
+          this.targetChild._trigger('touchstart');
+          this.targetChild._trigger('click');
+        }else{
+          this._trigger('mousedown');
+          this._trigger('click');
+        }
 
         this._pauseEvent(ev);
         return true;
@@ -1165,6 +1202,12 @@
         //   percentage = 100 - percentage;
         // }
 
+        if(this.targetChild){
+          this.targetChild._trigger('touchmove');
+        }else{
+          this._trigger('touchmove');
+        }
+
         this._adjustPercentageForRangeSliders(this.downElement, percentage);
 
         var val = this._calculateValue();
@@ -1177,13 +1220,16 @@
       _adjustPercentageForRangeSliders: function(el, percentage) {
         var diff;
 
-        // console.log(el);
+        
         if(this.options.value.length === 1 && (el === this.rangepickerTrack || el === this.rangepickerElem)){
           this.percentage[0] = percentage;
         }
-        // console.log(this.percentage, this.downPercentage);
+        
         for(i=0; i<this.handles.length; i++){
           if(el === this.handles[i]){
+            if(this.children){
+              this.targetChild = this.children[i];
+            }
             this.percentage[i] = percentage;
           }
         }
@@ -1210,6 +1256,15 @@
           document.removeEventListener("mousemove", this.mousemove, false);
           document.removeEventListener("mouseup", this.mouseup, false);
         }
+
+        if(this.targetChild){
+          this.targetChild._trigger('mouseup');
+          this.targetChild._trigger('touchend');
+        }else{
+          this._trigger('mouseup');
+          this._trigger('touchend');
+        }
+
         for(i=0; i<this.handles.length; i++){
           this._removeClass(this.selections[i], 'active');
           this._removeClass(this.handles[i], 'active');
@@ -1226,7 +1281,7 @@
       _calculateValue: function() {
 
         var val=[], i, value, percentage, next, previous, step, limit;
-        if (this.options.range || this.options.children || this.options.value.length > 1) {
+        if (this.options.range || this.children || this.options.value.length > 1) {
           for(i=0; i<this.percentage.length; i++){
             percentage = this.percentage[i];
             next = this.percentage[i+1]?this.percentage[i+1]:100;
@@ -1320,24 +1375,24 @@
         }
       },
       _setDataVal: function(val) {
-        var children, value, dataval;
-        if(this.options.children){
-          children = this.options.children;
-          val.forEach(function(value, i){
-            dataval = "value: '" + val + "'";
-            children[i].setAttribute('data', dataval);
-            children[i].setAttribute('value', value);
+        var target;
+        target = this;
+        if(this.parent){
+          this.parent.children.forEach(function(child, i){
+            if(child === target){
+              target.element.value = val[i];
+            }
+            child.element.setAttribute('data-value', val);
+            child.element.setAttribute('data', 'value: ['+val+']');
           });
+        }else if(parseFloat(val) === val){
+          this.element.value = val;
+          this.element.setAttribute('data', 'value: '+val+'');
         }else{
-          value = "value: '" + val + "'";
-          this.element.setAttribute('data', value);
-          if(parseFloat(val) === val){
-            this.element.setAttribute('value', val);
-          }else{
-            this.element.setAttribute('data-value', val);
-            this.element.setAttribute('value', '-');
-          }
+          // this.element.setAttribute('data-value', val);
+          this.element.value = val;
         }
+        // }
       },
       _trigger: function(evt, val) {
         val = val || undefined;
@@ -1435,7 +1490,7 @@
         $.each(RangeGroups, function(selector, group){
           var min, max, step, element, orientation,
               tooltip, handle, children, groupOptions,
-              reversed, enabled, formatter, id, precision, range, selection, natural_arrow_keys, tooltip_split, value, limit;
+              reversed, enabled, formatter, id, precision, range, selection, natural_arrow_keys, tooltip_split, value, limit, parent;
 
           max = 0;
           step = [];
@@ -1458,6 +1513,7 @@
           }
           
           $(group).each(function(i, options){
+
             min = Math.min(min, options.min);
             max = Math.max(max, options.max);
             precision = Math.max(precision, options.precision);
@@ -1495,7 +1551,6 @@
             if(options.reversed){
               reversed = true;
             }
-
           });
 
           step = self._gcd(step); // Find Greatest common denominator
@@ -1521,7 +1576,17 @@
             id: id,
             children: children
           };
-          groups.push(new RangePicker(element, groupOptions));
+
+          parent = new RangePicker(element, groupOptions);
+
+          $(group).each(function(i){
+            parent.children = parent.children || [];
+            parent.children.push($(this.element).data('rangepicker'));
+            $(this.element).data('rangepicker').index = i;
+            $(this.element).data('rangepicker').parent = parent;
+            $(this.element).data('rangepicker')['$rangepickerElem'] = $(parent.rangepickerElem);
+          });
+          groups.push();
         });
         
         RangeGroups = {}; // All groups added, clear out temporary storage

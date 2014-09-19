@@ -251,6 +251,7 @@ background: #BABABA;
 										/>
 										<input
 										type="range"
+										id="last-test"
 										class="col-sm-2 rangepicker-test"
 										min=".25"
 										max="24"
@@ -573,10 +574,16 @@ max: 200000
 					// $("#ex20, #ex21, #ex22").rangepicker({});
 					/* Example 3 */
 					var RGBChange = function() {
-					$('#RGB').css('background', 'rgb('+r.getValue()+','+g.getValue()+','+b.getValue()+')')
+						$('#RGB').css('background', 'rgb('+r.getValue()+','+g.getValue()+','+b.getValue()+')')
 					};
+					
 					$('.async-rangepicker, .rangepicker-test')
 						.rangepicker()
+						.on('slide', function(event){
+						});
+
+					// console.log(foo);
+
 					var r = $('#R').rangepicker()
 						.on('slide', RGBChange)
 						.data('rangepicker');
@@ -586,6 +593,12 @@ max: 200000
 					var b = $('#B').rangepicker()
 						.on('slide', RGBChange)
 						.data('rangepicker');
+
+					bar = $('#R, #G, #B')
+						.rangepicker()
+						.on('slide', RGBChange)
+
+
 					/* Example 4 */
 					$("#ex4").rangepicker({
 						reversed : true
