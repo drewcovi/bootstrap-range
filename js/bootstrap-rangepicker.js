@@ -379,18 +379,19 @@
         if(this.options.limit || this.options.value.length === 1){
           selection = document.createElement("div");
 
-          if(this.options.limit){
-            selectionHidden = ' hidden';
-          }else{
+          // if(this.options.limit){
+          //   selectionHidden = ' hidden';
+          // }else{
             selectionHidden = '';
-          }
+          // }
           selection.className = 
-            "rangepicker-selection rangepicker-selection-"+this.options.value.length+selectionHidden;
+            "rangepicker-selection rangepicker-selection-"+(this.options.value.length+1)+selectionHidden;
 
           selection.style.right = '0%';
-          selection.setAttribute('data-id', i+1);
+          selection.setAttribute('data-id', i+2);
           selections.push(selection);
-          rangepickerTrack.appendChild(selection);
+          // rangepickerTrack.appendChild(selection);
+          rangepickerTrack.insertBefore(selection,rangepickerTrack.childNodes[0]);
         }
 
 
@@ -971,11 +972,12 @@
         }
         for(i=0; i<this.selections.length; i++){
           selection = this.selections[i];
-          if(i===0 || this.options.limit === false){
+          if(i===0 || (this.options.limit === false && this.options.value.length !== 1)){
             prev = 0;
           }else{
             prev = this.percentage[i-1];
           }
+          console.log(i, this.percentage, prev);
           if(this.options.reversed){
             selection.style[dim[1]] = prev + '%';
             selection.style[dim[0]] = this.percentage[i]+'%';
