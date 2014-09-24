@@ -977,7 +977,6 @@
           }else{
             prev = this.percentage[i-1];
           }
-          console.log(i, this.percentage, prev);
           if(this.options.reversed){
             selection.style[dim[1]] = prev + '%';
             selection.style[dim[0]] = this.percentage[i]+'%';
