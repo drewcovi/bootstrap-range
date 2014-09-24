@@ -1,15 +1,15 @@
 {
-  "name": "bootstrap-rangepicker",
+  "name": "bootstrap-range",
   "version": "4.0.4",
   "description": "Slider view component for Twitter Bootstrap.",
-  "main": "js/bootstrap-rangepicker.js",
+  "main": "js/bootstrap-range.js",
   "scripts": {
     "install": "bower install",
     "test": "grunt test"
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/seiyria/bootstrap-rangepicker.git"
+    "url": "git://github.com/seiyria/bootstrap-range.git"
   },
   "author": "",
   "license": "BSD",
@@ -37,25 +37,25 @@
       "bindPolyfill": "test/phantom_bind_polyfill.js"
     },
     "less": {
-      "rangepicker": "less/bootstrap-rangepicker.less"
+      "range": "less/bootstrap-range.less"
     },
     "css": {
       "bootstrap": "bower_components/bootstrap/dist/css/bootstrap.min.css",
-      "rangepicker": "css/bootstrap-rangepicker.css"
+      "range": "css/bootstrap-range.css"
     },
     "tpl": {
       "SpecRunner": "tpl/SpecRunner.tpl",
       "index": "tpl/index.tpl"
     },
     "temp": {
-      "js": "temp/bootstrap-rangepicker.min.js",
-      "css": "temp/bootstrap-rangepicker.css",
-      "cssMin": "temp/bootstrap-rangepicker.min.css"
+      "js": "temp/bootstrap-range.min.js",
+      "css": "temp/bootstrap-range.css",
+      "cssMin": "temp/bootstrap-range.min.css"
     },
     "dist": {
-      "js": "dist/bootstrap-rangepicker.min.js",
-      "css": "dist/css/bootstrap-rangepicker.css",
-      "cssMin": "dist/css/bootstrap-rangepicker.min.css"
+      "js": "dist/bootstrap-range.min.js",
+      "css": "dist/css/bootstrap-range.css",
+      "cssMin": "dist/css/bootstrap-range.min.css"
     },
     "spec": "test/specs/**/*.js"
   },

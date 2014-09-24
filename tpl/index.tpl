@@ -3,12 +3,12 @@
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<meta name="description" content="Examples for bootstrap-rangepicker plugin">
+		<meta name="description" content="Examples for bootstrap-range plugin">
 		<meta name="author" content="">
 		<title>Rangepicker for Bootstrap Examples Page</title>
 		<!-- core CSS -->
 		<link href="<%= css.bootstrap %>" rel="stylesheet">
-		<link href="<%= css.rangepicker %>" rel="stylesheet">
+		<link href="<%= css.range %>" rel="stylesheet">
 		<!-- Custom styles for this template -->
 		<style type='text/css'>
 			/* Space out content a bit */
@@ -129,8 +129,8 @@
 	<body>
 		<div class="container">
 			<div class="jumbotron">
-				<h1>Rangepicker for Bootstrap <small>bootstrap-rangepicker.js</small></h1>
-				<p class="lead">Examples for the bootstrap-rangepicker component.<p>
+				<h1>Rangepicker for Bootstrap <small>bootstrap-range.js</small></h1>
+				<p class="lead">Examples for the bootstrap-range component.<p>
 			</div>
 			<div class="examples">
 				<div class='rangepicker-example'>
@@ -556,7 +556,7 @@ max: 200000
 				<!-- core JavaScript
 				================================================== -->
 				<script type='text/javascript' src="<%= js.jquery %>"></script>
-				<script type='text/javascript' src="<%= js.rangepicker %>"></script>
+				<script type='text/javascript' src="<%= js.range %>"></script>
 				<script type='text/javascript'>
 					$(document).ready(function() {
 						/* Example 1 */

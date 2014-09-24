@@ -9,7 +9,7 @@ describe("Namespace Tests", function() {
     var scriptLoaded;
 
     runs(function() {
-      $.getScript("js/bootstrap-rangepicker.js", function() {
+      $.getScript("js/bootstrap-range.js", function() {
         scriptLoaded = true;
       });
     });
@@ -34,7 +34,7 @@ describe("Namespace Tests", function() {
       $.fn.bootstrapRangepicker = undefined;
       $.fn.rangepicker = undefined;
 
-      $.getScript("js/bootstrap-rangepicker.js", function() {
+      $.getScript("js/bootstrap-range.js", function() {
         scriptLoaded = true;
       });
     });

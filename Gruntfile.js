@@ -96,7 +96,7 @@ module.exports = function(grunt) {
       options : {
         specs : '<%= pkg.gruntConfig.spec %>',
         vendor : ['<%= pkg.gruntConfig.js.jquery %>', '<%= pkg.gruntConfig.js.bindPolyfill %>'],
-        styles : ['<%= pkg.gruntConfig.css.bootstrap %>', '<%= pkg.gruntConfig.css.rangepicker %>'],
+        styles : ['<%= pkg.gruntConfig.css.bootstrap %>', '<%= pkg.gruntConfig.css.range %>'],
         template : '<%= pkg.gruntConfig.tpl.SpecRunner %>'
       }
     },
@@ -107,11 +107,11 @@ module.exports = function(grunt) {
             js : {
               modernizr : '<%= pkg.gruntConfig.js.modernizr %>',
               jquery : '<%= pkg.gruntConfig.js.jquery %>',
-              rangepicker : '<%= pkg.main %>'
+              range : '<%= pkg.main %>'
             },
             css : {
               bootstrap : '<%= pkg.gruntConfig.css.bootstrap %>',
-              rangepicker : '<%= pkg.gruntConfig.css.rangepicker %>'
+              range : '<%= pkg.gruntConfig.css.range %>'
             }
           }
         },
@@ -137,7 +137,7 @@ module.exports = function(grunt) {
         tasks: ['jshint:spec', 'jasmine:src']
       },
       css : {
-        files: '<%= pkg.gruntConfig.less.rangepicker %>',
+        files: '<%= pkg.gruntConfig.less.range %>',
         tasks: ['less:development']
       },
       index : {
@@ -163,12 +163,12 @@ module.exports = function(grunt) {
       },
       development: {
         files: {
-          '<%= pkg.gruntConfig.css.rangepicker %>': '<%= pkg.gruntConfig.less.rangepicker %>'
+          '<%= pkg.gruntConfig.css.range %>': '<%= pkg.gruntConfig.less.range %>'
         }
       },
       production: {
         files: {
-         '<%= pkg.gruntConfig.temp.css %>': '<%= pkg.gruntConfig.less.rangepicker %>',
+         '<%= pkg.gruntConfig.temp.css %>': '<%= pkg.gruntConfig.less.range %>',
         }
       },
       "production-min": {
@@ -176,7 +176,7 @@ module.exports = function(grunt) {
           yuicompress: true
         },
         files: {
-         '<%= pkg.gruntConfig.temp.cssMin %>': '<%= pkg.gruntConfig.less.rangepicker %>'
+         '<%= pkg.gruntConfig.temp.cssMin %>': '<%= pkg.gruntConfig.less.range %>'
         }
       }
     },
