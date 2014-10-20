@@ -1,4 +1,4 @@
-bootstrap-rangepicker [![Build Status](https://travis-ci.org/drewcovi/bootstrap-rangepicker.png?branch=master)](https://travis-ci.org/drewcovi/bootstrap-rangepicker)
+bootstrap-rangepicker [![Build Status](https://travis-ci.org/drewcovi/bootstrap-range.png?branch=master)](https://travis-ci.org/drewcovi/bootstrap-range)
 ================
 Originally began as a loose "fork" of bootstrap-slider found on http://www.eyecon.ro/ by Stefan Petre.
 
@@ -9,8 +9,8 @@ __Please ensure that you are using this library instead of the Petre version bef
 Installation
 ============
 Clone the repository, then run `npm install`
-
-Want to use bower? `bower install bootstrap-rangepicker`
+r
+Want to use bower? `bower install bootstrap-range`
 
 Then load the plugin CSS and JavaScript into your web page, and everything should work!
 
@@ -26,9 +26,9 @@ __We only support modern browsers!!! Basically, anything below IE9 is not compat
 
 Examples
 ========
-You can see all of our API examples [here](http://drewcovi.github.io/bootstrap-rangepicker/).
+You can see all of our API examples [here](http://drewcovi.github.io/bootstrap-range/).
 
-Using bootstrap-rangepicker (with JQuery)
+Using bootstrap-range (with JQuery)
 ======================
 
 Create an input element and call .rangepicker() on it:
@@ -135,11 +135,11 @@ Events
 
 Other Platforms & Libraries
 ===========================
-- [Ruby on Rails](https://github.com/stationkeeping/bootstrap-rangepicker-rails)
-- [knockout.js](https://github.com/cosminstefanxp/bootstrap-rangepicker-knockout-binding) ([@cosminstefanxp](https://github.com/cosminstefanxp), [#81](https://github.com/seiyria/bootstrap-rangepicker/issues/81))
-- [AngularJS](https://github.com/seiyria/angular-bootstrap-rangepicker)
-- [NuGet](https://www.nuget.org/packages/bootstrap.rangepicker)
-- [MeteorJS](https://github.com/kidovate/meteor-bootstrap-rangepicker)
+- [Ruby on Rails](https://github.com/stationkeeping/bootstrap-slider-rails)
+- [knockout.js](https://github.com/cosminstefanxp/bootstrap-slider-knockout-binding) ([@cosminstefanxp](https://github.com/cosminstefanxp), [#81](https://github.com/seiyria/bootstrap-slider/issues/81))
+- [AngularJS](https://github.com/seiyria/angular-bootstrap-slider)
+- [NuGet](https://www.nuget.org/packages/bootstrap.slider)
+- [MeteorJS](https://github.com/kidovate/meteor-bootstrap-slider)
 
 Maintainers
 ============
