@@ -221,6 +221,7 @@
         var dataName = "data-" + dasherize(optName);
 
         var valString = element.getAttribute(dataName)  ||
+                        (optName === 'value' && $(element).val()) ||
                         // use any native attributes besides id
                         (optName !== 'id' && 
                           element.getAttribute(optName));
